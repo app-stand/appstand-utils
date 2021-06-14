@@ -1,0 +1,18 @@
+{
+  "name": "@appstand/webjs",
+  "version": "1.0.2",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/app-stand/webjs.git"
+  },
+  "scripts": {
+    "npm:publish": "npm publish --access public"
+  },
+  "types": "types/index.d.ts",
+  "author": "appstand.ch",
+  "homepage": "https://github.com/app-stand/webjs#readme",
+  "peerDependencies": {
+    "@ionic/vue": "^5.6.9"
+  },
+  "private": false
+}
