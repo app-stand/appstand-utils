@@ -1,6 +1,6 @@
 {
   "name": "@appstand/webjs",
-  "version": "1.0.2",
+  "version": "1.0.11",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/app-stand/webjs.git"
@@ -14,5 +14,13 @@
   "peerDependencies": {
     "@ionic/vue": "^5.6.9"
   },
-  "private": false
+  "private": false,
+  "files": [
+    "assets",
+    "components",
+    "firebase",
+    "helpers",
+    "types",
+    "helpers.ts"
+  ]
 }
