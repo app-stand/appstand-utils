@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed } from "vue";
 import {
   IonHeader,
   IonToolbar,
@@ -29,7 +29,7 @@ import {
   IonButton,
   IonBackButton,
   IonIcon,
-} from '@ionic/vue'
+} from "@ionic/vue";
 
 export default defineComponent({
   props: {
@@ -45,7 +45,7 @@ export default defineComponent({
   setup(props, { slots }) {
     return {
       hasButtonsSlot: computed(() => !!slots.buttons),
-    }
+    };
   },
   components: {
     IonHeader,
@@ -55,7 +55,7 @@ export default defineComponent({
     IonBackButton,
     IonIcon,
   },
-})
+});
 </script>
 
 <style scoped>
