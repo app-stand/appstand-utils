@@ -11,6 +11,7 @@
           size-lg="6"
           offset-lg="3"
         >
+          <slot name="above-title" />
           <h1 v-if="title" class="pageTitle">
             {{ title }}
           </h1>
