@@ -1,5 +1,5 @@
 <template>
-  <ASBaseLayout>
+  <ASBaseLayout :fullscreen="fullscreen">
     <ion-grid class="_iosMargin">
       <ion-row>
         <ion-col
@@ -11,7 +11,7 @@
           size-lg="6"
           offset-lg="3"
         >
-          <slot name="above-title" />
+          <slot name="abovetitle" />
           <h1 v-if="title" class="pageTitle">
             {{ title }}
           </h1>
@@ -28,7 +28,16 @@ import ASBaseLayout from './ASBaseLayout.vue'
 import { IonGrid, IonRow, IonCol } from '@ionic/vue'
 
 export default defineComponent({
-  props: ['title'],
+  props: {
+    title: {
+      type: String,
+      default: '',
+    },
+    fullscreen: {
+      default: false,
+      type: Boolean,
+    },
+  },
   components: {
     ASBaseLayout,
     IonGrid,
