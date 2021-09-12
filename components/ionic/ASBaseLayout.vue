@@ -2,7 +2,11 @@
   <ion-page>
     <slot name="toolbar" />
     <DesktopToolbar class="ion-hide-lg-down" />
-    <ion-content forceOverscroll="false" :fullscreen="fullscreen" :scrollY="scrollY">
+    <ion-content
+      forceOverscroll="false"
+      :fullscreen="fullscreen"
+      :scrollY="scrollY"
+    >
       <slot />
     </ion-content>
     <slot name="footer"></slot>
@@ -21,6 +25,7 @@ export default defineComponent({
     },
     scrollY: {
       type: Boolean,
+      default: true,
     },
   },
   components: {
