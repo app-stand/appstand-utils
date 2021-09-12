@@ -2,7 +2,7 @@
   <ion-page>
     <slot name="toolbar" />
     <DesktopToolbar class="ion-hide-lg-down" />
-    <ion-content forceOverscroll="false" :fullscreen="fullscreen">
+    <ion-content forceOverscroll="false" :fullscreen="fullscreen" :scrollY="scrollY">
       <slot />
     </ion-content>
     <slot name="footer"></slot>
@@ -17,6 +17,9 @@ import DesktopToolbar from '@/components/_base/desktop/DesktopToolbar.vue'
 export default defineComponent({
   props: {
     fullscreen: {
+      type: Boolean,
+    },
+    scrollY: {
       type: Boolean,
     },
   },
