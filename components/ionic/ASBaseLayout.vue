@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <slot name="toolbar" />
-    <DesktopToolbar class="ion-hide-lg-down" />
+    <Toolbar :class="toolbarClasses" />
     <ion-content
       forceOverscroll="false"
       :fullscreen="fullscreen"
@@ -16,7 +16,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { IonPage, IonContent } from '@ionic/vue'
-import DesktopToolbar from '@/components/_base/desktop/DesktopToolbar.vue'
+import Toolbar from '@/components/_base/Toolbar.vue'
 
 export default defineComponent({
   props: {
@@ -27,11 +27,15 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    toolbarClasses: {
+      type: String,
+      required: false,
+    },
   },
   components: {
     IonPage,
     IonContent,
-    DesktopToolbar,
+    Toolbar,
   },
 })
 </script>
