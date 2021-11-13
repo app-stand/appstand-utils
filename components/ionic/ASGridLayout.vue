@@ -4,12 +4,12 @@
       <ion-row>
         <ion-col
           size="12"
-          size-sm="10"
-          offset-sm="1"
-          size-md="10"
-          offset-md="1"
-          size-lg="6"
-          offset-lg="3"
+          :size-sm="fullWidth ? 12 : 10"
+          :offset-sm="fullWidth ? 0 : 1"
+          :size-md="fullWidth ? 12 :10"
+          :offset-md="fullWidth ? 0 : 1"
+          :size-lg="fullWidth ? 12 : 6"
+          :offset-lg="fullWidth ? 0 : 3"
         >
           <slot name="abovetitle" />
           <h1 v-if="title" class="pageTitle">
@@ -37,6 +37,10 @@ export default defineComponent({
       default: false,
       type: Boolean,
     },
+    fullWidth: {
+      default: false,
+      type: Boolean,
+    }, 
   },
   components: {
     ASBaseLayout,
