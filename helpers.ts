@@ -7,6 +7,7 @@ export { checkIfUserHasMinimumRole } from './helpers/firebase/functions-admin'
 export { openModal } from './helpers/ionic/modalHelpers'
 export {
   handleError,
+  handleWarning,
   handleSuccess,
   displayNotification,
 } from './helpers/ionic/toastHandler'

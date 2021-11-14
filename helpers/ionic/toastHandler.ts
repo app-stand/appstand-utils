@@ -18,6 +18,23 @@ export async function handleError(e: any, message?: string) {
   return toast.present()
 }
 
+export async function handleWarning(message?: string, header?: string) {
+  const toast = await toastController.create({
+    header: header || 'Warning',
+    message: message,
+    duration: 5000,
+    position: 'top',
+    color: 'primary',
+    buttons: [
+      {
+        text: 'Close',
+        role: 'cancel',
+      },
+    ],
+  })
+  return toast.present()
+}
+
 export async function handleSuccess(message?: string, header?: string) {
   const toast = await toastController.create({
     header: header || 'Succees!',
