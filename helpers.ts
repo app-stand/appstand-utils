@@ -8,6 +8,7 @@ export { openModal } from './helpers/ionic/modalHelpers'
 export {
   handleError,
   handleWarning,
+  handleInfo,
   handleSuccess,
   displayNotification,
 } from './helpers/ionic/toastHandler'

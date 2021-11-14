@@ -24,7 +24,7 @@ export async function handleWarning(message?: string, header?: string) {
     message: message,
     duration: 5000,
     position: 'top',
-    color: 'primary',
+    color: 'warning',
     buttons: [
       {
         text: 'Close',
@@ -42,6 +42,23 @@ export async function handleSuccess(message?: string, header?: string) {
     duration: 5000,
     position: 'top',
     color: 'success',
+    buttons: [
+      {
+        text: 'Close',
+        role: 'cancel',
+      },
+    ],
+  })
+  return toast.present()
+}
+
+export async function handleInfo(message?: string, header?: string) {
+  const toast = await toastController.create({
+    header: header,
+    message: message,
+    duration: 5000,
+    position: 'top',
+    color: 'secondary',
     buttons: [
       {
         text: 'Close',
