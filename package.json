@@ -1,6 +1,6 @@
 {
   "name": "@appstand/webjs",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/app-stand/webjs.git"
@@ -11,9 +11,6 @@
   "types": "types/index.d.ts",
   "author": "appstand.ch",
   "homepage": "https://github.com/app-stand/webjs#readme",
-  "peerDependencies": {
-    "@ionic/vue": "^5.6.9"
-  },
   "private": false,
   "files": [
     "assets",
@@ -24,6 +21,7 @@
     "helpers.ts"
   ],
   "dependencies": {
-    "vue": "^3.1.5"
+    "vue": "^3.2.31",
+    "@ionic/vue": "^6.0.12"
   }
 }
