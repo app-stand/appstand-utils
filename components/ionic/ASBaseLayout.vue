@@ -1,7 +1,6 @@
 <template>
   <ion-page>
     <slot name="toolbar" />
-    <Toolbar :class="toolbarClasses" />
     <ion-content
       forceOverscroll="false"
       :fullscreen="fullscreen"
@@ -13,29 +12,16 @@
   </ion-page>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { IonPage, IonContent } from '@ionic/vue'
-import Toolbar from '@/components/_base/Toolbar.vue'
+<script lang="ts" setup>
+import {IonPage, IonContent} from '@ionic/vue'
 
-export default defineComponent({
-  props: {
-    fullscreen: {
-      type: Boolean,
-    },
-    scrollY: {
-      type: Boolean,
-      default: true,
-    },
-    toolbarClasses: {
-      type: String,
-      required: false,
-    },
+defineProps({
+  fullscreen: {
+    type: Boolean,
   },
-  components: {
-    IonPage,
-    IonContent,
-    Toolbar,
+  scrollY: {
+    type: Boolean,
+    default: true,
   },
 })
 </script>

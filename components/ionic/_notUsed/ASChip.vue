@@ -6,14 +6,6 @@
   </ion-chip>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import { IonChip, IonLabel } from '@ionic/vue'
-
-export default defineComponent({
-  components: {
-    IonChip,
-    IonLabel,
-  },
-})
 </script>

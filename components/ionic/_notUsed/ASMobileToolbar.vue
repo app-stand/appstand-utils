@@ -10,7 +10,7 @@
           v-for="button in buttons"
           :key="button.link"
           :router-link="button.link"
-          :class="{ 'my-item-selected': $route.path === '/settings' }"
+          :class="{'my-item-selected': $route.path === '/settings'}"
           routerDirection="root"
         >
           <ion-icon :icon="button.icon"></ion-icon>
@@ -20,8 +20,8 @@
   </ion-header>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from "vue";
+<script lang="ts" setup>
+import {computed} from 'vue'
 import {
   IonHeader,
   IonToolbar,
@@ -29,33 +29,18 @@ import {
   IonButton,
   IonBackButton,
   IonIcon,
-} from "@ionic/vue";
+} from '@ionic/vue'
 
-export default defineComponent({
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    buttons: {
-      type: Array,
-      default: null,
-    },
+defineProps({
+  title: {
+    type: String,
+    required: true,
   },
-  setup(props, { slots }) {
-    return {
-      hasButtonsSlot: computed(() => !!slots.buttons),
-    };
+  buttons: {
+    type: Array,
+    default: null,
   },
-  components: {
-    IonHeader,
-    IonToolbar,
-    IonButtons,
-    IonButton,
-    IonBackButton,
-    IonIcon,
-  },
-});
+})
 </script>
 
 <style scoped>

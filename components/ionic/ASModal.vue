@@ -18,8 +18,7 @@
   </ion-content>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import {
   IonContent,
   modalController,
@@ -30,29 +29,12 @@ import {
   IonButton,
   IonIcon,
 } from '@ionic/vue'
-import { closeCircle as closeCircleIcon } from 'ionicons/icons'
+import {closeCircle as closeCircleIcon} from 'ionicons/icons'
 
-export default defineComponent({
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-  },
-  components: {
-    IonContent,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonButtons,
-    IonButton,
-    IonIcon,
-  },
-  setup() {
-    return {
-      modalController,
-      closeCircleIcon,
-    }
+defineProps({
+  title: {
+    type: String,
+    required: true,
   },
 })
 </script>

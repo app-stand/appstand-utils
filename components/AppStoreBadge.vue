@@ -24,27 +24,25 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    android: {
-      type: String,
-      required: false,
-    },
-    ios: {
-      type: String,
-      required: false,
-    },
-    website: {
-      type: String,
-      required: false,
-    },
-    size: {
-      type: String,
-      default: "49",
-    },
+<script lang="ts" setup>
+const props = defineProps({
+  android: {
+    type: String,
+    required: false,
   },
-};
+  ios: {
+    type: String,
+    required: false,
+  },
+  website: {
+    type: String,
+    required: false,
+  },
+  size: {
+    type: String,
+    default: '49',
+  },
+})
 </script>
 
 <style scoped>
