@@ -2,29 +2,27 @@
   <div class="appstore-badge-wrapper">
     <div class="appstore-badge-badge">
       <a v-if="ios" :href="ios" target="_blank">
-        <img
-          src="../assets/appStoreBadges/appple-app-store.svg"
-          :height="size"
-        />
+        <img :src="appleAppStoreBadge" :height="size" />
       </a>
     </div>
     <div class="appstore-badge-badge">
       <a v-if="android" :href="android" target="_blank">
-        <img
-          src="../assets/appStoreBadges/android-play-store.svg"
-          :height="size"
-        />
+        <img :src="androidPlayStoreBadge" :height="size" />
       </a>
     </div>
     <div class="appstore-badge-badge">
       <a v-if="website" :href="website" target="_blank">
-        <img src="../assets/appStoreBadges/visit-website.svg" :height="size" />
+        <img :src="visitWebsiteBadge" :height="size" />
       </a>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import appleAppStoreBadge from './../assets/appStoreBadges/apple-app-store.svg?url'
+import androidPlayStoreBadge from './../assets/appStoreBadges/android-play-store.svg?url'
+import visitWebsiteBadge from './../assets/appStoreBadges/visit-website.svg?url'
+
 const props = defineProps({
   android: {
     type: String,
