@@ -22,3 +22,8 @@
   -moz-user-drag: none;
   -o-user-drag: none;
 }
+
+.AS-OVERFLOW-ELLIPSIS {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
