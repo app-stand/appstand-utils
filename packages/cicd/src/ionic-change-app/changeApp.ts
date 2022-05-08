@@ -174,13 +174,9 @@ export default async function main(appId: string) {
     const basePath = `${appPath}/android/app/src/main/java/${appIdArray[0]}/${appIdArray[1]}`
 
     for (const oldName of possibleOldAppIds) {
-      try {
-        const oldPath = `${basePath}/${oldName}`
-        const newPat = `${basePath}/${appIdArray[2]}`
-        renameSync(oldPath, newPat)
-      } catch (e) {
-        // do nothing
-      }
+      const oldPath = `${basePath}/${oldName}`
+      const newPat = `${basePath}/${appIdArray[2]}`
+      renameSync(oldPath, newPat)
     }
   }
 

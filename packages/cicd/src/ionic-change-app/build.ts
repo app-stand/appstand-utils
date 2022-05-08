@@ -1,5 +1,5 @@
 import {asyncExec} from './../asyncExec'
-import {start} from './helpers'
+import {appPath, start} from './helpers'
 import changeApp from './changeApp'
 
 // ******************************************************************
@@ -23,9 +23,9 @@ async function buildProject(devMode?: string | undefined) {
   let buildCmd
   if (devMode) {
     // Doesn't seem to properly work yet, see https://github.com/ionic-team/ionic-cli/issues/4642
-    buildCmd = 'vite build --mode development'
+    buildCmd = `cd ${appPath} && vite build --mode development`
   } else {
-    buildCmd = 'vite build --mode production' // default
+    buildCmd = `cd ${appPath} && vite build --mode production` // default
   }
 
   await asyncExec(buildCmd, true)

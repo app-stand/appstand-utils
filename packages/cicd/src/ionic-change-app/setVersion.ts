@@ -88,9 +88,9 @@ function writeNewVersionToPbxprojPath(version: string, build: number) {
   const regex2 = /MARKETING_VERSION[\s\S]*?;/g
 
   const newText1 = `CURRENT_PROJECT_VERSION = ${build};`
-  pbxprojFile = pbxprojFile.replaceAll(regex1, newText1)
+  pbxprojFile = pbxprojFile.replace(regex1, newText1)
   const newText2 = `MARKETING_VERSION = ${version};`
-  pbxprojFile = pbxprojFile.replaceAll(regex2, newText2)
+  pbxprojFile = pbxprojFile.replace(regex2, newText2)
 
   writeFileSync(pbxprojPath, pbxprojFile)
 }
