@@ -154,13 +154,17 @@ export default async function main(appId: string) {
       `${appPath}/android/app/src/main/AndroidManifest.xml`,
       `${appPath}/android/app/build.gradle`,
     ]
-    // TODO
+    // TODO - MAKE DYNAMIC
     const androidAppLabel = appConfig.appName.replace('Buddy', '&#8203;Buddy')
     const replacements = {
       'io.gymplify.main': appConfig.appId,
       'io.gymplify.thebar': appConfig.appId,
       TheBarApp: androidAppLabel, // strings.xml
       Gymplify: androidAppLabel, // strings.xml
+      'ch.riverbuddy.limmat': appConfig.appId,
+      'ch.riverbuddy.aare': appConfig.appId,
+      LimmatBuddy: androidAppLabel, // strings.xml
+      AareBuddy: androidAppLabel, // strings.xml
     }
     for (const filePath of filePaths) {
       const parsedFile = _replaceContent(filePath, replacements)
