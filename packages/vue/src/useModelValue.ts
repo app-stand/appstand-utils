@@ -1,6 +1,6 @@
 import {computed} from 'vue'
 
-export default function useModelValue<T>(
+function useModelValue<T>(
   props: {
     modelValue: T
     [key: string]: unknown
@@ -12,3 +12,5 @@ export default function useModelValue<T>(
     set: (value: T) => emit('update:modelValue', value),
   })
 }
+
+export {useModelValue}

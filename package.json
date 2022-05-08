@@ -1,30 +1,13 @@
 {
-  "name": "@appstand/webjs",
-  "version": "1.3.3",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/app-stand/webjs.git"
-  },
+  "name": "appstand-utils-monorepo",
+  "license": "UNLICENSED",
   "scripts": {
-    "npm:publish": "npm publish --access public"
+    "format": "prettier . --write"
   },
-  "types": "types/index.d.ts",
-  "author": "appstand.ch",
-  "homepage": "https://github.com/app-stand/webjs#readme",
-  "private": false,
-  "files": [
-    "assets",
-    "components",
-    "firebase",
-    "helpers",
-    "types",
-    "helpers.ts",
-    "eslint",
-    "styles",
-    "vue3"
+  "workspaces": [
+    "packages/*/**"
   ],
-  "dependencies": {
-    "vue": "^3.2.31",
-    "@ionic/vue": "^6.0.12"
+  "devDependencies": {
+    "@babel/types": "^7.17.10"
   }
 }

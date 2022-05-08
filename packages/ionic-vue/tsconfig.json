@@ -1,0 +1,14 @@
+{
+  "extends": "./../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+    "declarationDir": "./dist/@types",
+    "paths": {
+      "@/*": ["src/*"],
+      "@root/*": ["./../../*"]
+    }
+  },
+  "include": ["src", "../../@types", "../../@shared"],
+  "exclude": ["node_modules"]
+}
