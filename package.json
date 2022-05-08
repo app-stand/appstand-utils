@@ -6,22 +6,19 @@
     "url": "git+https://github.com/app-stand/webjs.git"
   },
   "scripts": {
+    "compile": "tsc src/index.ts",
     "npm:publish": "npm publish --access public"
   },
-  "types": "types/index.d.ts",
+  "types": "@types/index.d.ts",
+  "main": "./lib/index.ts",
   "author": "appstand.ch",
   "homepage": "https://github.com/app-stand/webjs#readme",
   "private": false,
   "files": [
+    "index.ts",
+    "@types",
     "assets",
-    "components",
-    "firebase",
-    "helpers",
-    "types",
-    "helpers.ts",
-    "eslint",
-    "styles",
-    "vue3"
+    "lib"
   ],
   "dependencies": {
     "vue": "^3.2.31",
