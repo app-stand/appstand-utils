@@ -7,7 +7,8 @@ async function asyncExec(cliCommand: string, syncIo = false) {
   try {
     // Makes sure, that called child processes i/o is synced
     if (syncIo) {
-      return await execSync(cliCommand)
+      // @ts-ignore
+      return await execSync(cliCommand, {stdio: 'inherit'})
     } else {
       return await exec(cliCommand)
     }

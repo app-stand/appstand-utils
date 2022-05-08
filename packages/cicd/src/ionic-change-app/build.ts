@@ -9,8 +9,7 @@ import changeApp from './changeApp'
 export default async function main(appId: string) {
   start('build')
   await changeApp(appId)
-  const devMode = process.env.DEV_MODE
-  await buildProject(devMode)
+  await buildProject()
   console.info('✅', `Successfully built app.`)
 }
 
@@ -18,7 +17,9 @@ export default async function main(appId: string) {
 // ************************** FUNCTIONS *****************************
 // ******************************************************************
 
-async function buildProject(devMode: string | undefined) {
+async function buildProject(devMode?: string | undefined) {
+  console.info('ℹ️', `Building ...`)
+
   let buildCmd
   if (devMode) {
     // Doesn't seem to properly work yet, see https://github.com/ionic-team/ionic-cli/issues/4642
@@ -28,6 +29,8 @@ async function buildProject(devMode: string | undefined) {
   }
 
   await asyncExec(buildCmd, true)
+
+  console.info('✅', `App successfully built!`)
 }
 
 export {main as build}

@@ -1,4 +1,4 @@
-import {start} from './helpers'
+import {appPath, cicdDir, start} from './helpers'
 import changeApp from './changeApp'
 import {asyncExec} from './../asyncExec'
 
@@ -17,8 +17,14 @@ export default async function main(appId: string) {
 // ******************************************************************
 
 async function serveProject() {
-  const buildCmd = 'vite --mode development' // default
-  await asyncExec(buildCmd, true)
+  console.info('ℹ️', `Serving ...`)
+  const cmd = `cd ${appPath} && vite --mode development` // default
+  try {
+    await asyncExec(cmd, true)
+  } catch (e) {
+    console.error('❌', e)
+    return
+  }
 }
 
 export {main as serve}

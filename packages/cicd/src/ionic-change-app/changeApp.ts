@@ -1,58 +1,53 @@
 import {readFileSync, writeFileSync, renameSync} from 'fs'
 import fsExtra from 'fs-extra'
+import {asyncExec} from '..'
 const {copySync} = fsExtra
-import {getAppConfig, packagesDir, start, cicdDir} from './helpers'
-import {asyncExec} from './../asyncExec'
+import {getAppConfig, start, cicdDir, appPath, templatesPath} from './helpers'
 
 interface ReplacementObj {
   [key: string]: string
 }
 
-const appId = process.env.APP
-// PATH:
-const appPath = `${packagesDir}/app`
-// CICD
-const templatesPath = `${cicdDir}/_templates`
-const appSpecificFolder = `${cicdDir}/apps/${appId}`
-const appSpecificConfigPath = `${appSpecificFolder}/appConfig`
-
 // ******************************************************************
 // ***************************** MAIN *******************************
 // ******************************************************************
 
-const elementsToMove = [
-  // Enitre appConfig folder
-  {
-    srcPath: appSpecificConfigPath,
-    destPath: `${appPath}/src/appConfig`,
-  },
-  // IOS Firebase File: GoogleService-Info.plist
-  {
-    srcPath: `${appSpecificFolder}/GoogleService-Info.plist`,
-    destPath: `${appPath}/ios/App/App/GoogleService-Info.plist`,
-  },
-  // Android Firebase File: GoogleService-Info.plist
-  {
-    srcPath: `${appSpecificFolder}/google-services.json`,
-    destPath: `${appPath}/android/app/google-services.json`,
-  },
-  // Favicon & Logos
-  {
-    srcPath: `${appSpecificFolder}/img/logo.svg`,
-    destPath: `${appPath}/src/assets/img/logo.svg`,
-  },
-  {
-    srcPath: `${appSpecificFolder}/img/favicon.png`,
-    destPath: `${appPath}/public/assets/img/favicon.png`,
-  },
-  {
-    srcPath: `${appSpecificFolder}/img/logo.svg`,
-    destPath: `${appPath}/public/assets/img/logo.svg`,
-  },
-]
-
 export default async function main(appId: string) {
   const appConfig = await getAppConfig(appId)
+
+  const appSpecificFolder = `${cicdDir}/apps/${appId}`
+  const appSpecificConfigPath = `${appSpecificFolder}/appConfig`
+
+  const elementsToMove = [
+    // Enitre appConfig folder
+    {
+      srcPath: appSpecificConfigPath,
+      destPath: `${appPath}/src/appConfig`,
+    },
+    // IOS Firebase File: GoogleService-Info.plist
+    {
+      srcPath: `${appSpecificFolder}/GoogleService-Info.plist`,
+      destPath: `${appPath}/ios/App/App/GoogleService-Info.plist`,
+    },
+    // Android Firebase File: GoogleService-Info.plist
+    {
+      srcPath: `${appSpecificFolder}/google-services.json`,
+      destPath: `${appPath}/android/app/google-services.json`,
+    },
+    // Favicon & Logos
+    {
+      srcPath: `${appSpecificFolder}/img/logo.svg`,
+      destPath: `${appPath}/src/assets/img/logo.svg`,
+    },
+    {
+      srcPath: `${appSpecificFolder}/img/favicon.png`,
+      destPath: `${appPath}/public/assets/img/favicon.png`,
+    },
+    {
+      srcPath: `${appSpecificFolder}/img/logo.svg`,
+      destPath: `${appPath}/public/assets/img/logo.svg`,
+    },
+  ]
 
   start('changeApp')
   try {
@@ -193,9 +188,9 @@ export default async function main(appId: string) {
     try {
       copySync(`${appSpecificFolder}/resources`, `${appPath}/resources`)
 
-      await asyncExec(`cordova-res ios --skip-config --copy`, false)
-      await asyncExec(`cordova-res android --skip-config --copy`, false)
-      await asyncExec(`rm -rf resources`, false)
+      // await asyncExec(`cordova-res ios --skip-config --copy`, false)
+      // await asyncExec(`cordova-res android --skip-config --copy`, false)
+      await asyncExec(`rm -rf ${appPath}/resources`, false)
     } catch (e) {
       console.error(e)
     }
