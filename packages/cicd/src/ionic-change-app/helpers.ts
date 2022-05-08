@@ -10,8 +10,12 @@ const templatesPath = `${moduleSrcPath}/ionic-change-app/_templates`
 
 async function getOldAppConfig() {
   const oldConfigPath = `${appPath}/src/appConfig/index.json`
-  const configJson = await import(oldConfigPath)
-  return configJson.default
+  try {
+    const configJson = await import(oldConfigPath)
+    return configJson.default
+  } catch (e) {
+    return null
+  }
 }
 
 async function getAppConfig(appId: string) {

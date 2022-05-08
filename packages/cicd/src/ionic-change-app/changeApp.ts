@@ -23,9 +23,16 @@ export default async function main(appId: string) {
   const appConfig = await getAppConfig(appId)
   const oldAppConfig = await getOldAppConfig()
 
-  if (appConfig.id === oldAppConfig.id) {
+  if (oldAppConfig && appConfig.id === oldAppConfig.id) {
     console.info('ℹ️', `App doesn't need to be changed, skipped.`)
     return
+  }
+
+  if (!oldAppConfig) {
+    console.info(
+      'ℹ️',
+      `No old app config found, not changing any existing files.`
+    )
   }
 
   const appSpecificFolder = `${cicdDir}/apps/${appId}`
@@ -159,6 +166,7 @@ export default async function main(appId: string) {
   }
 
   function changeIdentifier() {
+    if (!oldAppConfig) return
     const androidPath = appConfig.appId.replaceAll('.', '/')
     const filePaths = [
       `${appPath}/ios/App/App.xcodeproj/project.pbxproj`,
@@ -180,6 +188,7 @@ export default async function main(appId: string) {
   }
 
   function renameAndroidPackageFolder() {
+    if (!oldAppConfig) return
     const appIdArray = appConfig.appId.split('.')
     const oldAppIdArray = oldAppConfig.appId.split('.')
 
