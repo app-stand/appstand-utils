@@ -12,7 +12,8 @@
     "paths": {
       "@/*": ["src/*"],
       "@root/*": ["./../../*"]
-    }
+    },
+    "lib": ["ES2021.String"]
   },
   "include": ["src", "../../@types", "../../@shared"],
   "exclude": ["node_modules"]
