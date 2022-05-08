@@ -2,7 +2,14 @@ import {readFileSync, writeFileSync, renameSync} from 'fs'
 import fsExtra from 'fs-extra'
 import {asyncExec} from '..'
 const {copySync} = fsExtra
-import {getAppConfig, start, cicdDir, appPath, templatesPath} from './helpers'
+import {
+  getAppConfig,
+  start,
+  cicdDir,
+  appPath,
+  templatesPath,
+  getOldAppConfig,
+} from './helpers'
 
 interface ReplacementObj {
   [key: string]: string
@@ -14,6 +21,12 @@ interface ReplacementObj {
 
 export default async function main(appId: string) {
   const appConfig = await getAppConfig(appId)
+  const oldAppConfig = await getOldAppConfig()
+
+  if (appConfig.id === oldAppConfig.id) {
+    console.info('ℹ️', `App doesn't need to be changed, skipped.`)
+    return
+  }
 
   const appSpecificFolder = `${cicdDir}/apps/${appId}`
   const appSpecificConfigPath = `${appSpecificFolder}/appConfig`
@@ -154,17 +167,11 @@ export default async function main(appId: string) {
       `${appPath}/android/app/src/main/AndroidManifest.xml`,
       `${appPath}/android/app/build.gradle`,
     ]
-    // TODO - MAKE DYNAMIC
+
     const androidAppLabel = appConfig.appName.replace('Buddy', '&#8203;Buddy')
     const replacements = {
-      'io.gymplify.main': appConfig.appId,
-      'io.gymplify.thebar': appConfig.appId,
-      TheBarApp: androidAppLabel, // strings.xml
-      Gymplify: androidAppLabel, // strings.xml
-      'ch.riverbuddy.limmat': appConfig.appId,
-      'ch.riverbuddy.aare': appConfig.appId,
-      LimmatBuddy: androidAppLabel, // strings.xml
-      AareBuddy: androidAppLabel, // strings.xml
+      [oldAppConfig.appId]: appConfig.appId,
+      [oldAppConfig.appName]: androidAppLabel, // strings.xml
     }
     for (const filePath of filePaths) {
       const parsedFile = _replaceContent(filePath, replacements)
@@ -174,22 +181,28 @@ export default async function main(appId: string) {
 
   function renameAndroidPackageFolder() {
     const appIdArray = appConfig.appId.split('.')
-    const possibleOldAppIds = ['thebar', 'main'] // same as io.gymplify.xx ID
+    const oldAppIdArray = oldAppConfig.appId.split('.')
+
     const basePath = `${appPath}/android/app/src/main/java/${appIdArray[0]}/${appIdArray[1]}`
 
-    for (const oldName of possibleOldAppIds) {
-      const oldPath = `${basePath}/${oldName}`
-      const newPat = `${basePath}/${appIdArray[2]}`
-      renameSync(oldPath, newPat)
-    }
+    const oldPath = `${basePath}/${oldAppIdArray[2]}`
+    const newPat = `${basePath}/${appIdArray[2]}`
+    renameSync(oldPath, newPat)
   }
 
   async function createIcons() {
+    console.info('ℹ️', `Creating cordova-res icons...`)
     try {
       copySync(`${appSpecificFolder}/resources`, `${appPath}/resources`)
 
-      // await asyncExec(`cordova-res ios --skip-config --copy`, false)
-      // await asyncExec(`cordova-res android --skip-config --copy`, false)
+      await asyncExec(
+        `cd ${appPath} && cordova-res ios --skip-config --copy`,
+        false
+      )
+      await asyncExec(
+        `cd ${appPath} && cordova-res android --skip-config --copy`,
+        false
+      )
       await asyncExec(`rm -rf ${appPath}/resources`, false)
     } catch (e) {
       console.error(e)
