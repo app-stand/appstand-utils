@@ -5,7 +5,8 @@ function start(title: string) {
 const packagesDir = `${process.cwd()}/..`
 const appPath = `${packagesDir}/app`
 const cicdDir = `${packagesDir}/cicd-utils`
-const templatesPath = `${cicdDir}/_templates`
+const moduleSrcPath = `${__dirname}/../../src`
+const templatesPath = `${moduleSrcPath}/ionic-change-app/_templates`
 
 async function getAppConfig(appId: string) {
   const configPath = `${cicdDir}/apps/${appId}/appConfig/index.json`

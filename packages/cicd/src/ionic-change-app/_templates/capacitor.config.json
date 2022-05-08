@@ -1,0 +1,16 @@
+{
+  "appId": "XXXXXXXXXX",
+  "appName": "XXXXXXXXXX",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false,
+      "backgroundColor": "#3a9dd8",
+      "splashFullScreen": true,
+      "splashImmersive": true
+    }
+  },
+  "cordova": {}
+}
