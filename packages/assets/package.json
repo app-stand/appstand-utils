@@ -1,0 +1,14 @@
+{
+  "name": "@appstand/assets",
+  "version": "1.4.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/app-stand/webjs.git"
+  },
+  "scripts": {
+    "npm:publish": "npm publish --access public"
+  },
+  "author": "appstand.ch",
+  "homepage": "https://github.com/app-stand/webjs#readme",
+  "private": false
+}

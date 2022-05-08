@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "declarationDir": "./dist/@types",
-    "noImplicitReturns": true,
-    "outDir": "dist",
-    "sourceMap": true,
     "target": "esnext",
     "module": "esnext",
     "strict": true,
@@ -13,11 +9,9 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
     "resolveJsonModule": true,
     "useUnknownInCatchVariables": true,
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
-  },
-  "compileOnSave": false,
-  "include": ["src", "src/@types"],
-  "exclude": ["node_modules", "dist"]
+  }
 }
