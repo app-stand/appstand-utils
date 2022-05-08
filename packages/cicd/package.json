@@ -17,6 +17,11 @@
   "dependencies": {
     "@babel/types": "^7.17.10",
     "@ionic/vue": "^6.0.12",
+    "fs-extra": "^10.1.0",
     "vue": "^3.2.31"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.31",
+    "@types/fs-extra": "^9.0.13"
   }
 }
