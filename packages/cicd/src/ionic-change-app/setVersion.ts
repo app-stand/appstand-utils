@@ -6,8 +6,6 @@ const buildGradlePath = `${ionicDir}/android/app/build.gradle`
 const pbxprojPath = `${ionicDir}/ios/App/App.xcodeproj/project.pbxproj`
 const packageJsonPath = `${ionicDir}/package.json`
 
-type SemanticIndex = 0 | 1 | 2
-
 // ******************************************************************
 // ***************************** MAIN *******************************
 // ******************************************************************
