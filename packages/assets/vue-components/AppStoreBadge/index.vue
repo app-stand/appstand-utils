@@ -19,9 +19,9 @@
 </template>
 
 <script lang="ts" setup>
-import appleAppStoreBadge from './../assets/appStoreBadges/apple-app-store.svg?url'
-import androidPlayStoreBadge from './../assets/appStoreBadges/android-play-store.svg?url'
-import visitWebsiteBadge from './../assets/appStoreBadges/visit-website.svg?url'
+import appleAppStoreBadge from './img/apple-app-store.svg?url'
+import androidPlayStoreBadge from './img/android-play-store.svg?url'
+import visitWebsiteBadge from './img/visit-website.svg?url'
 
 const props = defineProps({
   android: {
