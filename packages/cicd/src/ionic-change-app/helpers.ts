@@ -8,8 +8,8 @@ const cicdDir = `${packagesDir}/cicd-utils`
 const moduleSrcPath = `${__dirname}/../../src`
 const templatesPath = `${moduleSrcPath}/ionic-change-app/_templates`
 
-async function getOldAppConfig() {
-  const oldConfigPath = `${appPath}/src/appConfig/index.json`
+async function getOldAppLocalConfig() {
+  const oldConfigPath = `${appPath}/src/appLocalConfig/index.json`
   try {
     const configJson = await import(oldConfigPath)
     return configJson.default
@@ -18,8 +18,8 @@ async function getOldAppConfig() {
   }
 }
 
-async function getAppConfig(appId: string) {
-  const configPath = `${cicdDir}/apps/${appId}/appConfig/index.json`
+async function getAppLocalConfig(appId: string) {
+  const configPath = `${cicdDir}/apps/${appId}/appLocalConfig/index.json`
   const configJson = await import(configPath)
   return configJson.default
 }
@@ -28,8 +28,8 @@ export {
   start,
   packagesDir,
   cicdDir,
-  getAppConfig,
+  getAppLocalConfig,
   appPath,
   templatesPath,
-  getOldAppConfig,
+  getOldAppLocalConfig,
 }

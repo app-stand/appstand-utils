@@ -3,12 +3,12 @@ import fsExtra from 'fs-extra'
 import {asyncExec} from '..'
 const {copySync} = fsExtra
 import {
-  getAppConfig,
+  getAppLocalConfig,
   start,
   cicdDir,
   appPath,
   templatesPath,
-  getOldAppConfig,
+  getOldAppLocalConfig,
 } from './helpers'
 
 interface ReplacementObj {
@@ -20,15 +20,15 @@ interface ReplacementObj {
 // ******************************************************************
 
 export default async function main(appId: string) {
-  const appConfig = await getAppConfig(appId)
-  const oldAppConfig = await getOldAppConfig()
+  const appLocalConfig = await getAppLocalConfig(appId)
+  const oldappLocalConfig = await getOldAppLocalConfig()
 
-  if (oldAppConfig && appConfig.id === oldAppConfig.id) {
+  if (oldappLocalConfig && appLocalConfig.id === oldappLocalConfig.id) {
     console.info('ℹ️', `App doesn't need to be changed, skipped.`)
     return
   }
 
-  if (!oldAppConfig) {
+  if (!oldappLocalConfig) {
     console.info(
       'ℹ️',
       `No old app config found, not changing any existing files.`
@@ -36,13 +36,13 @@ export default async function main(appId: string) {
   }
 
   const appSpecificFolder = `${cicdDir}/apps/${appId}`
-  const appSpecificConfigPath = `${appSpecificFolder}/appConfig`
+  const appSpecificConfigPath = `${appSpecificFolder}/appLocalConfig`
 
   const elementsToMove = [
-    // Enitre appConfig folder
+    // Enitre appLocalConfig folder
     {
       srcPath: appSpecificConfigPath,
-      destPath: `${appPath}/src/appConfig`,
+      destPath: `${appPath}/src/appLocalConfig`,
     },
     // IOS Firebase File: GoogleService-Info.plist
     {
@@ -98,8 +98,8 @@ export default async function main(appId: string) {
     const destPath = `${appPath}/capacitor.config.json`
     const capacitatorFile = readFileSync(srcPath)
     let capacitatorFileContent = JSON.parse(capacitatorFile.toString())
-    capacitatorFileContent.appId = appConfig.appId
-    capacitatorFileContent.appName = appConfig.appName
+    capacitatorFileContent.appId = appLocalConfig.appId
+    capacitatorFileContent.appName = appLocalConfig.appName
     writeFileSync(destPath, JSON.stringify(capacitatorFileContent))
   }
 
@@ -114,7 +114,7 @@ export default async function main(appId: string) {
   function changeRobots() {
     // packages/app/public/robots.txt
     const replacements = {
-      '{{appId}}': appConfig.id,
+      '{{appId}}': appLocalConfig.id,
     }
     const parsedFile = _replaceContent(
       `${templatesPath}/robots.txt`,
@@ -127,8 +127,8 @@ export default async function main(appId: string) {
   function changeIndexHtml() {
     //packages/app/index.html
     const replacements = {
-      '{{appName}}': appConfig.appName,
-      '{{htmlTitle}}': appConfig.htmlTitle,
+      '{{appName}}': appLocalConfig.appName,
+      '{{htmlTitle}}': appLocalConfig.htmlTitle,
     }
     const parsedFile = _replaceContent(
       `${templatesPath}/index.html`,
@@ -141,7 +141,7 @@ export default async function main(appId: string) {
   function changeInfoPlist() {
     // packages/app/ios/App/App/Info.plist
     const replacements = {
-      '{{appName}}': appConfig.appName,
+      '{{appName}}': appLocalConfig.appName,
     }
     const parsedFile = _replaceContent(
       `${templatesPath}/Info.plist`,
@@ -154,7 +154,7 @@ export default async function main(appId: string) {
   function changeSitemapXml() {
     // packages/app/public/sitemap.xml
     const replacements = {
-      '{{appId}}': appConfig.id,
+      '{{appId}}': appLocalConfig.id,
       '{{lastmod}}': new Date().toISOString(),
     }
     const parsedFile = _replaceContent(
@@ -166,8 +166,8 @@ export default async function main(appId: string) {
   }
 
   function changeIdentifier() {
-    if (!oldAppConfig) return
-    const androidPath = appConfig.appId.replaceAll('.', '/')
+    if (!oldappLocalConfig) return
+    const androidPath = appLocalConfig.appId.replaceAll('.', '/')
     const filePaths = [
       `${appPath}/ios/App/App.xcodeproj/project.pbxproj`,
       `${appPath}/android/app/src/main/res/values/strings.xml`,
@@ -176,10 +176,13 @@ export default async function main(appId: string) {
       `${appPath}/android/app/build.gradle`,
     ]
 
-    const androidAppLabel = appConfig.appName.replace('Buddy', '&#8203;Buddy')
+    const androidAppLabel = appLocalConfig.appName.replace(
+      'Buddy',
+      '&#8203;Buddy'
+    )
     const replacements = {
-      [oldAppConfig.appId]: appConfig.appId,
-      [oldAppConfig.appName]: androidAppLabel, // strings.xml
+      [oldappLocalConfig.appId]: appLocalConfig.appId,
+      [oldappLocalConfig.appName]: androidAppLabel, // strings.xml
     }
     for (const filePath of filePaths) {
       const parsedFile = _replaceContent(filePath, replacements)
@@ -188,9 +191,9 @@ export default async function main(appId: string) {
   }
 
   function renameAndroidPackageFolder() {
-    if (!oldAppConfig) return
-    const appIdArray = appConfig.appId.split('.')
-    const oldAppIdArray = oldAppConfig.appId.split('.')
+    if (!oldappLocalConfig) return
+    const appIdArray = appLocalConfig.appId.split('.')
+    const oldAppIdArray = oldappLocalConfig.appId.split('.')
 
     const basePath = `${appPath}/android/app/src/main/java/${appIdArray[0]}/${appIdArray[1]}`
 

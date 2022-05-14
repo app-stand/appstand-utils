@@ -8,7 +8,8 @@ You need to have a monorepo structured like this:
   - cicd
     - apps
       - {appId}
-        - appConfig
+        - appLocalConfig
+          - index.ts
         - img
         - resources
         - google-services.json
