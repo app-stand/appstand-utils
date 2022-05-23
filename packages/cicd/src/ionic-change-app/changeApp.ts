@@ -54,18 +54,15 @@ export default async function main(appId: string) {
       srcPath: `${appSpecificFolder}/google-services.json`,
       destPath: `${appPath}/android/app/google-services.json`,
     },
-    // Favicon & Logos
+    // Public Folder
     {
-      srcPath: `${appSpecificFolder}/img/logo.svg`,
-      destPath: `${appPath}/src/assets/img/logo.svg`,
+      srcPath: `${appSpecificFolder}/public/img`,
+      destPath: `${appPath}/public/dyn/img`,
     },
+    // Assets Folder
     {
-      srcPath: `${appSpecificFolder}/img/favicon.png`,
-      destPath: `${appPath}/public/assets/img/favicon.png`,
-    },
-    {
-      srcPath: `${appSpecificFolder}/img/logo.svg`,
-      destPath: `${appPath}/public/assets/img/logo.svg`,
+      srcPath: `${appSpecificFolder}/assets/img`,
+      destPath: `${appPath}/assets/dyn/img`,
     },
   ]
 
