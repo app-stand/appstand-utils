@@ -18,6 +18,24 @@ You need to have a monorepo structured like this:
         - GoogleService-Info.plist
 ```
 
+Add the following to GitIgnore:
+
+```
+# APPSTAND: Due to Multitenancy
+**/app/src/appLocalConfig/**
+**/app/capacitor.config.json
+**/ios/App/App/capacitor.config.json
+**/android/app/src/main/assets/capacitor.config.json
+**/ios/App/App/GoogleService-Info.plist
+**/ios/App/App/Info.plist
+**/android/app/google-services.json
+**/app/public/robots.txt
+**/app/public/sitemap.xml
+**/app/public/index.html
+**/app/public/dyn
+**/app/src/assets/dyn
+```
+
 ### Usage
 
 Run the following command in your CICD folder:
