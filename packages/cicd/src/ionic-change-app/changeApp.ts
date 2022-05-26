@@ -36,14 +36,8 @@ export default async function main(appId: string) {
   }
 
   const appSpecificFolder = `${cicdDir}/apps/${appId}`
-  const appSpecificConfigPath = `${appSpecificFolder}/appLocalConfig`
 
   const elementsToMove = [
-    // Enitre appLocalConfig folder
-    {
-      srcPath: appSpecificConfigPath,
-      destPath: `${appPath}/src/appLocalConfig`,
-    },
     // IOS Firebase File: GoogleService-Info.plist
     {
       srcPath: `${appSpecificFolder}/GoogleService-Info.plist`,
@@ -56,13 +50,13 @@ export default async function main(appId: string) {
     },
     // Public Folder
     {
-      srcPath: `${appSpecificFolder}/public/img`,
-      destPath: `${appPath}/public/dyn/img`,
+      srcPath: `${appSpecificFolder}/public`,
+      destPath: `${appPath}/public/dyn`,
     },
     // Assets Folder
     {
-      srcPath: `${appSpecificFolder}/assets/img`,
-      destPath: `${appPath}/assets/dyn/img`,
+      srcPath: `${appSpecificFolder}/assets`,
+      destPath: `${appPath}/src/assets/dyn`,
     },
   ]
 

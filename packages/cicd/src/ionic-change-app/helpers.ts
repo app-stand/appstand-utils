@@ -9,7 +9,7 @@ const moduleSrcPath = `${__dirname}/../../src`
 const templatesPath = `${moduleSrcPath}/ionic-change-app/_templates`
 
 async function getOldAppLocalConfig() {
-  const oldConfigPath = `${appPath}/src/appLocalConfig/index.json`
+  const oldConfigPath = `${appPath}/src/assets/dyn/appLocalConfig.json`
   try {
     const configJson = await import(oldConfigPath)
     return configJson.default
@@ -19,7 +19,7 @@ async function getOldAppLocalConfig() {
 }
 
 async function getAppLocalConfig(appId: string) {
-  const configPath = `${cicdDir}/apps/${appId}/appLocalConfig/index.json`
+  const configPath = `${cicdDir}/apps/${appId}/assets/appLocalConfig.json`
   const configJson = await import(configPath)
   return configJson.default
 }
