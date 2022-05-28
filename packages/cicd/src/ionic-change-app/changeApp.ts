@@ -12,7 +12,8 @@ import {
 } from './helpers'
 
 interface ReplacementObj {
-  [key: string]: string
+  old: string
+  new: string
 }
 
 // ******************************************************************
@@ -94,19 +95,22 @@ export default async function main(appId: string) {
     writeFileSync(destPath, JSON.stringify(capacitatorFileContent))
   }
 
-  function _replaceContent(srcPath: string, replacements: ReplacementObj) {
+  function _replaceContent(srcPath: string, replacements: ReplacementObj[]) {
     let templateFile = readFileSync(srcPath, {encoding: 'utf8'})
-    for (const [key, value] of Object.entries(replacements)) {
-      templateFile = templateFile.replaceAll(key, value)
+    for (const replacement of replacements) {
+      templateFile = templateFile.replaceAll(replacement.old, replacement.new)
     }
     return templateFile
   }
 
   function changeRobots() {
     // packages/app/public/robots.txt
-    const replacements = {
-      '{{appId}}': appLocalConfig.id,
-    }
+    const replacements = [
+      {
+        old: '{{appId}}',
+        new: appLocalConfig.id,
+      },
+    ]
     const parsedFile = _replaceContent(
       `${templatesPath}/robots.txt`,
       replacements
@@ -117,10 +121,17 @@ export default async function main(appId: string) {
 
   function changeIndexHtml() {
     //packages/app/index.html
-    const replacements = {
-      '{{appName}}': appLocalConfig.appName,
-      '{{htmlTitle}}': appLocalConfig.htmlTitle,
-    }
+    const replacements = [
+      {
+        old: '{{appName}}',
+        new: appLocalConfig.appName,
+      },
+      {
+        old: '{{htmlTitle}}',
+        new: appLocalConfig.htmlTitle,
+      },
+    ]
+
     const parsedFile = _replaceContent(
       `${templatesPath}/index.html`,
       replacements
@@ -131,23 +142,31 @@ export default async function main(appId: string) {
 
   function changeInfoPlist() {
     // packages/app/ios/App/App/Info.plist
-    const replacements = {
-      '{{appName}}': appLocalConfig.appName,
-    }
-    const parsedFile = _replaceContent(
-      `${templatesPath}/Info.plist`,
-      replacements
-    )
-    const destPath = `${appPath}/ios/App/App/Info.plist`
-    writeFileSync(destPath, parsedFile)
+    const filePath = `${appPath}/ios/App/App/Info.plist`
+
+    const replacements = [
+      {
+        old: oldappLocalConfig.appName,
+        new: appLocalConfig.appName,
+      },
+    ]
+    const parsedFile = _replaceContent(filePath, replacements)
+
+    writeFileSync(filePath, parsedFile)
   }
 
   function changeSitemapXml() {
     // packages/app/public/sitemap.xml
-    const replacements = {
-      '{{appId}}': appLocalConfig.id,
-      '{{lastmod}}': new Date().toISOString(),
-    }
+    const replacements = [
+      {
+        old: '{{appId}}',
+        new: appLocalConfig.id,
+      },
+      {
+        old: '{{lastmod}}',
+        new: new Date().toISOString(),
+      },
+    ]
     const parsedFile = _replaceContent(
       `${templatesPath}/sitemap.xml`,
       replacements
@@ -171,10 +190,16 @@ export default async function main(appId: string) {
       'Buddy',
       '&#8203;Buddy'
     )
-    const replacements = {
-      [oldappLocalConfig.appId]: appLocalConfig.appId,
-      [oldappLocalConfig.appName]: androidAppLabel, // strings.xml
-    }
+    const replacements = [
+      {
+        old: oldappLocalConfig.appId,
+        new: appLocalConfig.appId,
+      },
+      {
+        old: oldappLocalConfig.appName,
+        new: androidAppLabel,
+      },
+    ]
     for (const filePath of filePaths) {
       const parsedFile = _replaceContent(filePath, replacements)
       writeFileSync(filePath, parsedFile)
