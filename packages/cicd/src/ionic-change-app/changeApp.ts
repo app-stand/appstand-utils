@@ -10,6 +10,7 @@ import {
   templatesPath,
   getOldAppLocalConfig,
 } from './helpers'
+import pwaAssetGenerator from 'pwa-asset-generator'
 
 interface ReplacementObj {
   old: string
@@ -73,7 +74,8 @@ export default async function main(appId: string) {
     changeInfoPlist()
     renameAndroidPackageFolder()
     changeIdentifier()
-    await createIcons()
+    await createMobileIcons()
+    await createPWAIcons()
   } catch (e) {
     console.error('❌', e)
     return
@@ -218,7 +220,7 @@ export default async function main(appId: string) {
     renameSync(oldPath, newPat)
   }
 
-  async function createIcons() {
+  async function createMobileIcons() {
     console.info('ℹ️', `Creating cordova-res icons...`)
     try {
       copySync(`${appSpecificFolder}/resources`, `${appPath}/resources`)
@@ -232,6 +234,28 @@ export default async function main(appId: string) {
         false
       )
       await asyncExec(`rm -rf ${appPath}/resources`, false)
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  async function createPWAIcons() {
+    console.info('ℹ️', `Creating pwa icons...`)
+
+    const sourceIconPath = `${appSpecificFolder}/resources/icon.png`
+    const destinationPath = `${appPath}/public/dyn/img/pwa`
+    const htmlIndexPath = `${appPath}/index.html`
+    const manifestPath = `${appPath}/public/manifest.json`
+
+    try {
+      await asyncExec(
+        `npx pwa-asset-generator -b "${appLocalConfig.colors.pwaBackground}" -i ${htmlIndexPath} -m ${manifestPath} ${sourceIconPath} ${destinationPath}`,
+        false
+      )
+      // TODO: Try to use the imported module instead of npx
+      // await pwaAssetGenerator.generateImages(sourceIconPath, destinationPath, {
+      //   background: appLocalConfig.backgroundColor,
+      // })
     } catch (e) {
       console.error(e)
     }
