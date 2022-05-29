@@ -10,7 +10,7 @@ import {
   templatesPath,
   getOldAppLocalConfig,
 } from './helpers'
-import pwaAssetGenerator from 'pwa-asset-generator'
+// import pwaAssetGenerator from 'pwa-asset-generator'
 
 interface ReplacementObj {
   old: string
@@ -143,6 +143,7 @@ export default async function main(appId: string) {
   }
 
   function changeInfoPlist() {
+    if (!oldappLocalConfig) return
     // packages/app/ios/App/App/Info.plist
     const filePath = `${appPath}/ios/App/App/Info.plist`
 
@@ -244,12 +245,14 @@ export default async function main(appId: string) {
 
     const sourceIconPath = `${appSpecificFolder}/resources/icon.png`
     const destinationPath = `${appPath}/public/dyn/img/pwa`
-    const htmlIndexPath = `${appPath}/index.html`
-    const manifestPath = `${appPath}/public/manifest.json`
+
+    // -i ${htmlIndexPath} -m ${manifestPath}
+    //const htmlIndexPath = `${appPath}/index.html`
+    //const manifestPath = `${appPath}/public/manifest.json`
 
     try {
       await asyncExec(
-        `npx pwa-asset-generator -b "${appLocalConfig.colors.pwaBackground}" -i ${htmlIndexPath} -m ${manifestPath} ${sourceIconPath} ${destinationPath}`,
+        `npx pwa-asset-generator -b "${appLocalConfig.colors.pwaBackground}" ${sourceIconPath} ${destinationPath}`,
         false
       )
       // TODO: Try to use the imported module instead of npx
