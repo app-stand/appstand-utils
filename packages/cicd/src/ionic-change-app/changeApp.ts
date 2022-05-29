@@ -122,24 +122,20 @@ export default async function main(appId: string) {
   }
 
   function changeIndexHtml() {
+    if (!oldappLocalConfig) return
+
     //packages/app/index.html
     const replacements = [
       {
-        old: '{{appName}}',
-        new: appLocalConfig.appName,
-      },
-      {
-        old: '{{htmlTitle}}',
+        old: oldappLocalConfig.htmlTitle,
         new: appLocalConfig.htmlTitle,
       },
     ]
 
-    const parsedFile = _replaceContent(
-      `${templatesPath}/index.html`,
-      replacements
-    )
-    const destPath = `${appPath}/index.html`
-    writeFileSync(destPath, parsedFile)
+    const filePath = `${appPath}/index.html`
+    const parsedFile = _replaceContent(filePath, replacements)
+
+    writeFileSync(filePath, parsedFile)
   }
 
   function changeInfoPlist() {
@@ -252,7 +248,7 @@ export default async function main(appId: string) {
 
     try {
       await asyncExec(
-        `npx pwa-asset-generator -b "${appLocalConfig.colors.pwaBackground}" ${sourceIconPath} ${destinationPath}`,
+        `npx pwa-asset-generator -b "${appLocalConfig.colors.pwaIconBackground}" ${sourceIconPath} ${destinationPath}`,
         false
       )
       // TODO: Try to use the imported module instead of npx
