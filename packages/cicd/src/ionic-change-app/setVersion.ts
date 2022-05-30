@@ -18,7 +18,10 @@ function main(semanticIndex: SemanticIndex) {
   writeNewVersionToBuildGradle(gradleFile, nextVersion, nextBuild) // Android
   writeNewVersionToPbxprojPath(nextVersion, nextBuild) // iOS
   writeNewVersionToPackageJsons(nextVersion) // iOS
-  console.info('✅', `Successfully set version to ${nextVersion}.`)
+  console.info(
+    '✅',
+    `Successfully set version to ${nextVersion} (Build: ${nextBuild}).`
+  )
 }
 
 // ******************************************************************
@@ -38,6 +41,11 @@ function getNextVersion(gradleFile: string, semanticIndex: SemanticIndex) {
     .substring(i, i + 14)
     .replace(/\s/g, '')
     .replaceAll('"', '')
+
+  if (semanticIndex === 'build-only') {
+    return currentVersion
+  }
+
   const currentVersionArray = currentVersion.split('.')
 
   if (currentVersionArray.length === 2) {
