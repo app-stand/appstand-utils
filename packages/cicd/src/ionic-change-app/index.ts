@@ -20,7 +20,7 @@ function main() {
     return
   }
   if (SEMANTIC_INDEX) {
-    if (!['0', '1', '2', 'build-only'].includes(SEMANTIC_INDEX)) {
+    if (!['0', '1', '2', '99'].includes(SEMANTIC_INDEX)) {
       throw '❌: Provided SEMANTIC_INDEX not allowed.'
     }
     setVersion(parseInt(SEMANTIC_INDEX) as SemanticIndex)

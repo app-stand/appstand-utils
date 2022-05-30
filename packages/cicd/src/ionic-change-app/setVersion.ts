@@ -42,7 +42,7 @@ function getNextVersion(gradleFile: string, semanticIndex: SemanticIndex) {
     .replace(/\s/g, '')
     .replaceAll('"', '')
 
-  if (semanticIndex === 'build-only') {
+  if (semanticIndex === 99) {
     return currentVersion
   }
 
