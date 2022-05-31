@@ -18,7 +18,7 @@ export default async function main(appId: string) {
 
 async function serveProject() {
   console.info('ℹ️', `Serving ...`)
-  const cmd = `cd ${appPath} && vite --mode development` // default
+  const cmd = `cd ${appPath} && vite --host --mode development` // default
   try {
     await asyncExec(cmd, true)
   } catch (e) {
