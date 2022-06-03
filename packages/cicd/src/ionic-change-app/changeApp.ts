@@ -9,6 +9,7 @@ import {
   appPath,
   templatesPath,
   getOldAppLocalConfig,
+  getConfig,
 } from './helpers'
 // import pwaAssetGenerator from 'pwa-asset-generator'
 
@@ -22,8 +23,10 @@ interface ReplacementObj {
 // ******************************************************************
 
 export default async function main(appId: string) {
+  const config = await getConfig()
   const appLocalConfig = await getAppLocalConfig(appId)
   const oldappLocalConfig = await getOldAppLocalConfig()
+  
 
   if (oldappLocalConfig && appLocalConfig.id === oldappLocalConfig.id) {
     console.info('ℹ️', `App doesn't need to be changed, skipped.`)
@@ -69,7 +72,11 @@ export default async function main(appId: string) {
       copySync(srcPath, destPath)
     }
     changeRobots()
-    changeSitemapXml()
+
+    if (config.changeSitemap) {
+      changeSitemapXml()
+    }
+
     changeIndexHtml()
     changeInfoPlist()
     renameAndroidPackageFolder()
