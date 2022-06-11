@@ -66,7 +66,6 @@ export default async function main(appId: string) {
 
   start('changeApp')
   try {
-    changeCapacitorConfig()
     for (const {srcPath, destPath} of elementsToMove) {
       copySync(srcPath, destPath)
     }
@@ -91,17 +90,6 @@ export default async function main(appId: string) {
   // ******************************************************************
   // ************************** FUNCTIONS *****************************
   // ******************************************************************
-
-  function changeCapacitorConfig() {
-    // capacitor.config.json
-    const srcPath = `${templatesPath}/capacitor.config.json`
-    const destPath = `${appPath}/capacitor.config.json`
-    const capacitatorFile = readFileSync(srcPath)
-    let capacitatorFileContent = JSON.parse(capacitatorFile.toString())
-    capacitatorFileContent.appId = appLocalConfig.appId
-    capacitatorFileContent.appName = appLocalConfig.appName
-    writeFileSync(destPath, JSON.stringify(capacitatorFileContent))
-  }
 
   function _replaceContent(srcPath: string, replacements: ReplacementObj[]) {
     let templateFile = readFileSync(srcPath, {encoding: 'utf8'})
