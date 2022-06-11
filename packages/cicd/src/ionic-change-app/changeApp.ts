@@ -26,7 +26,6 @@ export default async function main(appId: string) {
   const config = await getConfig()
   const appLocalConfig = await getAppLocalConfig(appId)
   const oldappLocalConfig = await getOldAppLocalConfig()
-  
 
   if (oldappLocalConfig && appLocalConfig.id === oldappLocalConfig.id) {
     console.info('ℹ️', `App doesn't need to be changed, skipped.`)
@@ -255,7 +254,7 @@ export default async function main(appId: string) {
 
     try {
       await asyncExec(
-        `npx pwa-asset-generator -b "${appLocalConfig.colors.pwaIconBackground}" ${sourceIconPath} ${destinationPath}`,
+        `npx pwa-asset-generator -b "${appLocalConfig.colors.pwaIconBackground}" --padding "0px" ${sourceIconPath} ${destinationPath}`,
         false
       )
       // TODO: Try to use the imported module instead of npx
