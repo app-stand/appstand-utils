@@ -106,7 +106,7 @@ function writeNewVersionToPbxprojPath(version: string, build: number) {
 function writeNewVersionToPackageJsons(version: string, build: number) {
   let packageJsonFile = readFileSync(packageJsonPath, 'utf8')
   const packageJson = JSON.parse(packageJsonFile)
-  packageJson.version = ` ${version}+${build}`
+  packageJson.version = ` ${version} (${build})`
   writeFileSync(packageJsonPath, JSON.stringify(packageJson))
 }
 
