@@ -17,7 +17,7 @@ function main(semanticIndex: SemanticIndex) {
   const nextVersion = getNextVersion(gradleFile, semanticIndex)
   writeNewVersionToBuildGradle(gradleFile, nextVersion, nextBuild) // Android
   writeNewVersionToPbxprojPath(nextVersion, nextBuild) // iOS
-  writeNewVersionToPackageJsons(nextVersion) // iOS
+  writeNewVersionToPackageJsons(nextVersion, nextBuild) // iOS
   console.info(
     '✅',
     `Successfully set version to ${nextVersion} (Build: ${nextBuild}).`
@@ -103,10 +103,10 @@ function writeNewVersionToPbxprojPath(version: string, build: number) {
   writeFileSync(pbxprojPath, pbxprojFile)
 }
 
-function writeNewVersionToPackageJsons(version: string) {
+function writeNewVersionToPackageJsons(version: string, build: number) {
   let packageJsonFile = readFileSync(packageJsonPath, 'utf8')
   const packageJson = JSON.parse(packageJsonFile)
-  packageJson.version = version
+  packageJson.version = ` ${version}+${build}`
   writeFileSync(packageJsonPath, JSON.stringify(packageJson))
 }
 
