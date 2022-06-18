@@ -12,6 +12,7 @@ import {
   getConfig,
 } from './helpers'
 // import pwaAssetGenerator from 'pwa-asset-generator'
+import replaceStringsXml from './file-replacers/stringsXml'
 
 interface ReplacementObj {
   old: string
@@ -75,6 +76,7 @@ export default async function main(appId: string) {
       changeSitemapXml()
     }
 
+    replaceStringsXml(appLocalConfig)
     changeIndexHtml()
     changeInfoPlist()
     renameAndroidPackageFolder()
@@ -173,7 +175,6 @@ export default async function main(appId: string) {
     const androidPath = appLocalConfig.appId.replaceAll('.', '/')
     const filePaths = [
       `${appPath}/ios/App/App.xcodeproj/project.pbxproj`,
-      `${appPath}/android/app/src/main/res/values/strings.xml`,
       `${appPath}/android/app/src/main/java/${androidPath}/MainActivity.java`,
       `${appPath}/android/app/src/main/AndroidManifest.xml`,
       `${appPath}/android/app/build.gradle`,
