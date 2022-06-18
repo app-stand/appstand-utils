@@ -20,6 +20,9 @@ interface ReplacementObj {
   new: string
 }
 
+const SKIP_CAPACITATOR = process.env.SKIP_CAPACITATOR || false
+const SKIP_PWA = process.env.SKIP_PWA || false
+
 // ******************************************************************
 // ***************************** MAIN *******************************
 // ******************************************************************
@@ -72,11 +75,17 @@ export default async function main(appId: string) {
 
     replaceStringsXml(appLocalConfig)
     replaceIndexHtml(appLocalConfig)
-    changeInfoPlist()
-    renameAndroidPackageFolder()
-    changeIdentifier()
-    await createMobileIcons()
-    await createPWAIcons()
+
+    if (!SKIP_CAPACITATOR) {
+      changeInfoPlist()
+      renameAndroidPackageFolder()
+      changeIdentifier()
+      await createMobileIcons()
+    }
+
+    if (!SKIP_PWA) {
+      await createPWAIcons()
+    }
   } catch (e) {
     console.error('❌', e)
     return
