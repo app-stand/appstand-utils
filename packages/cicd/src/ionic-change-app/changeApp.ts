@@ -76,14 +76,14 @@ export default async function main(appId: string) {
     replaceStringsXml(appLocalConfig)
     replaceIndexHtml(appLocalConfig)
 
-    if (!SKIP_CAPACITATOR) {
+    if (SKIP_CAPACITATOR !== 'true') {
       changeInfoPlist()
       renameAndroidPackageFolder()
       changeIdentifier()
       await createMobileIcons()
     }
 
-    if (!SKIP_PWA) {
+    if (SKIP_PWA !== 'true') {
       await createPWAIcons()
     }
   } catch (e) {
