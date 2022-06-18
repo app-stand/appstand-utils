@@ -13,6 +13,7 @@ import {
 } from './helpers'
 // import pwaAssetGenerator from 'pwa-asset-generator'
 import replaceStringsXml from './file-replacers/stringsXml'
+import replaceIndexHtml from './file-replacers/indexHtml'
 
 interface ReplacementObj {
   old: string
@@ -31,13 +32,6 @@ export default async function main(appId: string) {
   if (oldappLocalConfig && appLocalConfig.id === oldappLocalConfig.id) {
     console.info('ℹ️', `App doesn't need to be changed, skipped.`)
     return
-  }
-
-  if (!oldappLocalConfig) {
-    console.info(
-      'ℹ️',
-      `No old app config found, not changing any existing files.`
-    )
   }
 
   const appSpecificFolder = `${cicdDir}/apps/${appId}`
@@ -77,7 +71,7 @@ export default async function main(appId: string) {
     }
 
     replaceStringsXml(appLocalConfig)
-    changeIndexHtml()
+    replaceIndexHtml(appLocalConfig)
     changeInfoPlist()
     renameAndroidPackageFolder()
     changeIdentifier()
@@ -117,23 +111,6 @@ export default async function main(appId: string) {
     writeFileSync(destPath, parsedFile)
   }
 
-  function changeIndexHtml() {
-    if (!oldappLocalConfig) return
-
-    //packages/app/index.html
-    const replacements = [
-      {
-        old: oldappLocalConfig.htmlTitle,
-        new: appLocalConfig.htmlTitle,
-      },
-    ]
-
-    const filePath = `${appPath}/index.html`
-    const parsedFile = _replaceContent(filePath, replacements)
-
-    writeFileSync(filePath, parsedFile)
-  }
-
   function changeInfoPlist() {
     if (!oldappLocalConfig) return
     // packages/app/ios/App/App/Info.plist
@@ -171,7 +148,8 @@ export default async function main(appId: string) {
   }
 
   function changeIdentifier() {
-    if (!oldappLocalConfig) return
+    if (!oldappLocalConfig)
+      throw 'No oldAppConfig found, changeIdentifier not possible!'
     const androidPath = appLocalConfig.appId.replaceAll('.', '/')
     const filePaths = [
       `${appPath}/ios/App/App.xcodeproj/project.pbxproj`,
@@ -201,7 +179,8 @@ export default async function main(appId: string) {
   }
 
   function renameAndroidPackageFolder() {
-    if (!oldappLocalConfig) return
+    if (!oldappLocalConfig)
+      throw 'No oldAppConfig found, renameAndroidPackageFolder not possible!'
     const appIdArray = appLocalConfig.appId.split('.')
     const oldAppIdArray = oldappLocalConfig.appId.split('.')
 

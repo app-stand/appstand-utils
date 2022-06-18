@@ -1,6 +1,6 @@
 {
   "name": "@appstand/cicd",
-  "version": "2.2.4",
+  "version": "2.2.8",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/app-stand/appstand-utils.git"
