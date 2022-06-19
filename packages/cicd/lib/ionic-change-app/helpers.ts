@@ -1,5 +1,5 @@
 import {assign} from 'lodash'
-import {AppLocalConfig} from 'types'
+import {AppLocalConfig, AppstandCicdConfig} from 'types'
 
 function start(title: string) {
   console.info('ℹ️', `Starting ${title}...`)
@@ -13,15 +13,15 @@ const templatesPath = `${moduleSrcPath}/ionic-change-app/_templates`
 
 // CICD Config
 async function getConfig() {
-  const defaultSettings = {
+  const defaultSettings: AppstandCicdConfig = {
     changeSitemap: true,
   }
 
-  const configPath = `${cicdDir}/config.json`
+  const configPath = `${cicdDir}/cicdConfig.ts`
   try {
-    const configJson = await import(configPath)
+    const configTs = await import(configPath)
 
-    return assign({}, defaultSettings, configJson.default)
+    return assign({}, defaultSettings, configTs.default as AppstandCicdConfig)
   } catch (e) {
     return defaultSettings
   }
