@@ -1,20 +1,29 @@
 {
-  "extends": "./../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "module": "commonjs",
-    "esModuleInterop": true,
     "target": "es6",
+    "module": "commonjs",
+    "declaration": true,
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
     "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "sourceMap": true,
+    "resolveJsonModule": true,
+    "useUnknownInCatchVariables": true,
+    "outDir": "dist",
     "baseUrl": ".",
     "declarationDir": "./dist/@types",
     "paths": {
-      "@/*": ["src/*"],
+      "@/*": ["dist/*"],
       "@root/*": ["./../../*"]
     },
     "lib": ["ES2021.String"]
   },
-  "include": ["src", "../../@types", "../../@shared"],
+  "ts-node": {
+    "files": true
+  },
+  "include": ["lib", "types"],
   "exclude": ["node_modules"]
 }
