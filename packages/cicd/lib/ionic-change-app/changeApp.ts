@@ -33,7 +33,10 @@ export default async function main(
   const appLocalConfig = await getAppLocalConfig(appId)
   const oldappLocalConfig = await getOldAppLocalConfig()
 
-  if (oldappLocalConfig && appLocalConfig.id === oldappLocalConfig.id) {
+  if (
+    oldappLocalConfig &&
+    appLocalConfig.identifier === oldappLocalConfig.identifier
+  ) {
     console.info('ℹ️', `App doesn't need to be changed, skipped.`)
     return
   }
@@ -114,7 +117,7 @@ export default async function main(
     const replacements = [
       {
         old: '{{appUrl}}',
-        new: appLocalConfig.appUrl ?? 'localhost',
+        new: appLocalConfig.url.full ?? 'localhost',
       },
     ]
     const parsedFile = _replaceContent(
@@ -132,8 +135,8 @@ export default async function main(
 
     const replacements = [
       {
-        old: oldappLocalConfig.appName,
-        new: appLocalConfig.appName,
+        old: oldappLocalConfig.ios.infoPlist.cfBundleDisplayName,
+        new: appLocalConfig.ios.infoPlist.cfBundleDisplayName,
       },
     ]
     const parsedFile = _replaceContent(filePath, replacements)
@@ -142,11 +145,14 @@ export default async function main(
   }
 
   function changeSitemapXml() {
+    if (!appLocalConfig.url.full) {
+      throw 'Cannot change sitemal, full url not provided.'
+    }
     // packages/app/public/sitemap.xml
     const replacements = [
       {
-        old: '{{appId}}',
-        new: appLocalConfig.id,
+        old: '{{appUrlFull}}',
+        new: appLocalConfig.url.full,
       },
       {
         old: '{{lastmod}}',
@@ -164,7 +170,7 @@ export default async function main(
   function changeIdentifier() {
     if (!oldappLocalConfig)
       throw 'No oldAppConfig found, changeIdentifier not possible!'
-    const androidPath = appLocalConfig.appId.replaceAll('.', '/')
+    const androidPath = appLocalConfig.identifier.replaceAll('.', '/')
     const filePaths = [
       `${appPath}/ios/App/App.xcodeproj/project.pbxproj`,
       `${appPath}/android/app/src/main/java/${androidPath}/MainActivity.java`,
@@ -172,18 +178,10 @@ export default async function main(
       `${appPath}/android/app/build.gradle`,
     ]
 
-    const androidAppLabel = appLocalConfig.appName.replace(
-      'Buddy',
-      '&#8203;Buddy'
-    )
     const replacements = [
       {
-        old: oldappLocalConfig.appId,
-        new: appLocalConfig.appId,
-      },
-      {
-        old: oldappLocalConfig.appName,
-        new: androidAppLabel,
+        old: oldappLocalConfig.identifier,
+        new: appLocalConfig.identifier,
       },
     ]
     for (const filePath of filePaths) {
@@ -195,8 +193,8 @@ export default async function main(
   function renameAndroidPackageFolder() {
     if (!oldappLocalConfig)
       throw 'No oldAppConfig found, renameAndroidPackageFolder not possible!'
-    const appIdArray = appLocalConfig.appId.split('.')
-    const oldAppIdArray = oldappLocalConfig.appId.split('.')
+    const appIdArray = appLocalConfig.identifier.split('.')
+    const oldAppIdArray = oldappLocalConfig.identifier.split('.')
 
     const basePath = `${appPath}/android/app/src/main/java/${appIdArray[0]}/${appIdArray[1]}`
 
@@ -236,7 +234,7 @@ export default async function main(
 
     try {
       await asyncExec(
-        `npx pwa-asset-generator -b "${appLocalConfig.colors.pwaIconBackground}" --padding "0px" ${sourceIconPath} ${destinationPath}`,
+        `npx pwa-asset-generator -b "${appLocalConfig.pwa.icon.backgroundColor}" --padding "0px" ${sourceIconPath} ${destinationPath}`,
         false
       )
       // TODO: Try to use the imported module instead of npx

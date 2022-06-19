@@ -23,7 +23,6 @@ Add the following to GitIgnore:
 ```
 # APPSTAND: Due to Multitenancy
 **/app/src/appLocalConfig/**
-**/app/capacitor.config.json
 **/ios/App/App/capacitor.config.json
 **/android/app/src/main/assets/capacitor.config.json
 **/ios/App/App/GoogleService-Info.plist

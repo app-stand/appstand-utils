@@ -1,3 +1,3 @@
 export * from './AppLocalConfig'
 export * from './Enums'
-export * from './AppstandCicdConfig.d'
+export * from './AppstandCicdConfig'

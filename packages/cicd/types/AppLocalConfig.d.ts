@@ -1,15 +1,14 @@
 export interface AppLocalConfig {
-  id: string
-  fbAppId: string
-  appId: string
-  appName: string
-  appNameShort: string
-  appUrl: string | null
+  identifier: string // Should be completely unique ID
+  firestoreId: string // Unique per abb, but smae for different envs (used for firestore etc.)
+  url: {
+    small: string | null // without http/www
+    full: string | null // with https & www, used e.g. for sitemap, robots
+  }
   storeLinks: {
     android: string
     ios: string
   }
-
   firebase: {
     apiKey: string
     authDomain: string
@@ -20,27 +19,39 @@ export interface AppLocalConfig {
     appId: string
     measurementId?: string
   }
-  colors: {
-    pwaIconBackground: string
-    pwaBackground: string
+  indexHtml: {
+    title: string
   }
-  cicd: {
-    indexHtml: {
-      title: string
-    }
-    ios: {
-      infoPlist: {
-        cfBundleDisplayName: string
-      }
-    }
-    android: {
-      stringsXml: {
-        appName: string
-        titleActivityMain: string
-        packageName: string
-        customUrlSheme: string
-      }
+  ios: {
+    infoPlist: {
+      cfBundleDisplayName: string
     }
   }
-  appSpecific?: any
+  android: {
+    stringsXml: {
+      appName: string
+      titleActivityMain: string
+      packageName: string
+      customUrlSheme: string
+    }
+  }
+  pwa: {
+    manifest: {
+      name: string
+      short_name: string
+      description: string
+      theme_color: string
+      background_color: string
+    }
+    icon: {
+      backgroundColor: string
+    }
+  }
+  capacitor: {
+    appId: string
+    appName: string
+    splashscreen: {
+      backgroundColor: string
+    }
+  }
 }
