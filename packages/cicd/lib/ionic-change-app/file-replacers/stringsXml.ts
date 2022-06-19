@@ -1,11 +1,12 @@
+import {AppLocalConfig} from 'types'
 import {readFileSync, writeFileSync} from 'fs-extra'
 import {appPath} from '../helpers'
 import replaceBetween from './helpers/replaceBetween'
 
-export default (appLocalConfig: any) => {
+export default (appLocalConfig: AppLocalConfig) => {
   const filePath = `${appPath}/android/app/src/main/res/values/strings.xml`
   let fileContent = readFileSync(filePath, {encoding: 'utf8'})
-  const stringsXmlConfig = appLocalConfig.cicd.android.stringsXml
+  const stringsXmlConfig = appLocalConfig.android.stringsXml
 
   fileContent = replaceBetween(
     fileContent,
