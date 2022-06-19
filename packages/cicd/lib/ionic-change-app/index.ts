@@ -3,6 +3,7 @@
 import {setVersion} from './setVersion'
 import {build} from './build'
 import {serve} from './serve'
+import {Mode, SemanticIndex} from 'types'
 
 main()
 

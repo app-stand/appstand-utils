@@ -114,7 +114,7 @@ export default async function main(
     const replacements = [
       {
         old: '{{appUrl}}',
-        new: appLocalConfig.appUrl,
+        new: appLocalConfig.appUrl ?? 'localhost',
       },
     ]
     const parsedFile = _replaceContent(

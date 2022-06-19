@@ -1,4 +1,5 @@
 import {readFileSync, writeFileSync} from 'fs'
+import {SemanticIndex} from 'types'
 import {packagesDir, start} from './helpers'
 
 const ionicDir = `${packagesDir}/app`

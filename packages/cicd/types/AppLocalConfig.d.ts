@@ -5,7 +5,7 @@ export interface AppLocalConfig {
   appName: string
   appNameShort: string
   description: string
-  appUrl: string
+  appUrl: string | null
   storeLinks: {
     android: string | null
     ios: string | null
@@ -18,6 +18,7 @@ export interface AppLocalConfig {
     storageBucket: string
     messagingSenderId: string
     appId: string
+    measurementId?: string
   }
   colors: {
     pwaIconBackground: string

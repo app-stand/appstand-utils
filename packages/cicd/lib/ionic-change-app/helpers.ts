@@ -1,4 +1,5 @@
 import {assign} from 'lodash'
+import {AppLocalConfig} from 'types'
 
 function start(title: string) {
   console.info('ℹ️', `Starting ${title}...`)
