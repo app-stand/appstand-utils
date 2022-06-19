@@ -108,8 +108,8 @@ export default async function main(appId: string) {
     // packages/app/public/robots.txt
     const replacements = [
       {
-        old: '{{appId}}',
-        new: appLocalConfig.id,
+        old: '{{appUrl}}',
+        new: appLocalConfig.appUrl,
       },
     ]
     const parsedFile = _replaceContent(
