@@ -6,14 +6,10 @@ export interface AppLocalConfig {
   appNameShort: string
   appUrl: string | null
   storeLinks: {
-    android: string | null
-    ios: string | null
+    android: string
+    ios: string
   }
-  socialLinks?: {
-    twitter?: string
-    facebook?: string
-    instagram?: string
-  }
+
   firebase: {
     apiKey: string
     authDomain: string
