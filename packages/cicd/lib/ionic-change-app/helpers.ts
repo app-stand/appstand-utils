@@ -30,7 +30,7 @@ async function getOldAppLocalConfig() {
   const oldConfigPath = `${appPath}/src/assets/dyn/appLocalConfig.ts`
   try {
     const configTs = await import(oldConfigPath)
-    return configTs.default
+    return configTs.default as AppLocalConfig
   } catch (e) {
     return null
   }
@@ -39,7 +39,7 @@ async function getOldAppLocalConfig() {
 async function getAppLocalConfig(appId: string) {
   const configPath = `${cicdDir}/apps/${appId}/assets/appLocalConfig.ts`
   const configTs = await import(configPath)
-  return configTs.default
+  return configTs.default as AppLocalConfig
 }
 
 export {
