@@ -4,16 +4,20 @@ export interface AppLocalConfig {
   appId: string
   appName: string
   appNameShort: string
-  description: string
   appUrl: string | null
   storeLinks: {
     android: string | null
     ios: string | null
   }
+  socialLinks?: {
+    twitter?: string
+    facebook?: string
+    instagram?: string
+  }
   firebase: {
     apiKey: string
     authDomain: string
-    databaseURL: string
+    databaseURL?: string
     projectId: string
     storageBucket: string
     messagingSenderId: string
@@ -42,4 +46,5 @@ export interface AppLocalConfig {
       }
     }
   }
+  appSpecific?: any
 }
