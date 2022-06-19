@@ -42,7 +42,7 @@ function getNextVersion(gradleFile: string, semanticIndex: SemanticIndex) {
     .replace(/\s/g, '')
     .replaceAll('"', '')
 
-  if (semanticIndex === 99) {
+  if (semanticIndex === '99') {
     return currentVersion
   }
 
@@ -56,12 +56,12 @@ function getNextVersion(gradleFile: string, semanticIndex: SemanticIndex) {
   }
 
   switch (semanticIndex) {
-    case 2:
+    case '2':
       break
-    case 1:
+    case '1':
       currentVersionArray[2] = '0'
       break
-    case 0:
+    case '0':
       currentVersionArray[2] = '0'
       currentVersionArray[1] = '0'
       break

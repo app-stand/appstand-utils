@@ -1,2 +1,4 @@
-type SemanticIndex = 0 | 1 | 2 | 99
+type SemanticIndex = '0' | '1' | '2' | '99'
 // 99 meaning: increase build number only
+
+type Mode = 'serve' | 'build' | 'build-web' | 'build-mobile'

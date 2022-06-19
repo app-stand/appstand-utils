@@ -6,9 +6,13 @@ import changeApp from './changeApp'
 // ***************************** MAIN *******************************
 // ******************************************************************
 
-export default async function main(appId: string) {
+export default async function main(
+  appId: string,
+  skipCapacitator: boolean,
+  skipPwa: boolean
+) {
   start('build')
-  await changeApp(appId)
+  await changeApp(appId, skipCapacitator, skipPwa)
   await buildProject()
   console.info('✅', `Successfully built app.`)
 }

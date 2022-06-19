@@ -20,14 +20,15 @@ interface ReplacementObj {
   new: string
 }
 
-const SKIP_CAPACITATOR = process.env.SKIP_CAPACITATOR || false
-const SKIP_PWA = process.env.SKIP_PWA || false
-
 // ******************************************************************
 // ***************************** MAIN *******************************
 // ******************************************************************
 
-export default async function main(appId: string) {
+export default async function main(
+  appId: string,
+  skipCapacitator: boolean,
+  skipPwa: boolean
+) {
   const config = await getConfig()
   const appLocalConfig = await getAppLocalConfig(appId)
   const oldappLocalConfig = await getOldAppLocalConfig()
@@ -76,14 +77,18 @@ export default async function main(appId: string) {
     replaceStringsXml(appLocalConfig)
     replaceIndexHtml(appLocalConfig)
 
-    if (SKIP_CAPACITATOR !== 'true') {
+    if (skipCapacitator) {
+      console.info('ℹ️', `Skipping capacitator asset generation...`)
+    } else {
       changeInfoPlist()
       renameAndroidPackageFolder()
       changeIdentifier()
       await createMobileIcons()
     }
 
-    if (SKIP_PWA !== 'true') {
+    if (skipPwa) {
+      console.info('ℹ️', `Skipping pwa asset generation...`)
+    } else {
       await createPWAIcons()
     }
   } catch (e) {

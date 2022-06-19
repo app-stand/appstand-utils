@@ -8,7 +8,7 @@ import {asyncExec} from './../asyncExec'
 
 export default async function main(appId: string) {
   start('serve')
-  await changeApp(appId)
+  await changeApp(appId, true, true)
   serveProject()
 }
 
