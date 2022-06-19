@@ -1,6 +1,6 @@
 {
   "name": "@appstand/cicd",
-  "version": "2.3.3",
+  "version": "2.3.5",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/app-stand/appstand-utils.git"
@@ -9,7 +9,7 @@
     "start": "ts-node ./lib/ionic-change-app/index.ts",
     "npm:publish": "npm publish --access public"
   },
-  "types": "./types",
+  "types": "./types/index.d.ts",
   "author": "appstand.ch",
   "homepage": "https://github.com/app-stand/appstand-utils#readme",
   "private": false,

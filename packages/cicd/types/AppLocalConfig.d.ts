@@ -1,4 +1,4 @@
-interface AppLocalConfig {
+export interface AppLocalConfig {
   id: string
   fbAppId: string
   appId: string
