@@ -1,6 +1,6 @@
 #!/usr/bin/env ts-node
 
-import {setVersion} from './setVersion'
+import {setVersion} from './set-version'
 import {build} from './build'
 import {serve} from './serve'
 import {Mode, SemanticIndex} from 'types'

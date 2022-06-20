@@ -1,6 +1,6 @@
-import {appPath, cicdDir, start} from './helpers'
-import changeApp from './changeApp'
-import {asyncExec} from './../asyncExec'
+import {appPath, cicdDir, start} from '../_helpers/helpers'
+import changeApp from '../change-app'
+import {asyncExec} from '../../async-exec'
 
 // ******************************************************************
 // ***************************** MAIN *******************************

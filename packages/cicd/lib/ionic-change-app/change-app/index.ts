@@ -1,6 +1,6 @@
 import {readFileSync, writeFileSync, renameSync} from 'fs'
 import fsExtra from 'fs-extra'
-import {asyncExec} from '..'
+import {asyncExec} from './../../async-exec'
 const {copySync} = fsExtra
 import {
   getAppLocalConfig,
@@ -10,7 +10,7 @@ import {
   templatesPath,
   getOldAppLocalConfig,
   getConfig,
-} from './helpers'
+} from '../_helpers/helpers'
 // import pwaAssetGenerator from 'pwa-asset-generator'
 import replaceStringsXml from './file-replacers/stringsXml'
 import replaceIndexHtml from './file-replacers/indexHtml'

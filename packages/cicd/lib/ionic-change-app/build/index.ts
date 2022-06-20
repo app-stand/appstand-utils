@@ -1,6 +1,6 @@
-import {asyncExec} from './../asyncExec'
-import {appPath, start} from './helpers'
-import changeApp from './changeApp'
+import {asyncExec} from '../../async-exec'
+import {appPath, start} from '../_helpers/helpers'
+import changeApp from '../change-app'
 
 // ******************************************************************
 // ***************************** MAIN *******************************

@@ -1,6 +1,6 @@
 import {readFileSync, writeFileSync} from 'fs'
 import {SemanticIndex} from 'types'
-import {packagesDir, start} from './helpers'
+import {packagesDir, start} from '../_helpers/helpers'
 
 const ionicDir = `${packagesDir}/app`
 const buildGradlePath = `${ionicDir}/android/app/build.gradle`
