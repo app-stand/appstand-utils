@@ -77,12 +77,12 @@ export default async function main(
       changeSitemapXml()
     }
 
-    replaceStringsXml(appLocalConfig)
     replaceIndexHtml(appLocalConfig)
 
     if (skipCapacitator) {
       console.info('ℹ️', `Skipping capacitator asset generation...`)
     } else {
+      replaceStringsXml(appLocalConfig)
       changeInfoPlist()
       renameAndroidPackageFolder()
       changeIdentifier()
