@@ -14,7 +14,7 @@ const packagesDir = `${process.cwd()}/..`
 const appPath = `${packagesDir}/app`
 const cicdDir = `${packagesDir}/cicd-utils`
 const moduleSrcPath = `${__dirname}/../../lib`
-const templatesPath = `${moduleSrcPath}/ionic-change-app/_templates`
+const templatesPath = `${moduleSrcPath}/ionic-change-app/change-app/_templates`
 
 // CICD Config
 async function getConfig() {
