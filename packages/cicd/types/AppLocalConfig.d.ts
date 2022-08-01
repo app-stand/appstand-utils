@@ -17,7 +17,7 @@ export interface AppLocalConfig {
     storageBucket: string
     messagingSenderId: string
     appId: string
-    measurementId?: string
+    measurementId: string
   }
   indexHtml: {
     title: string
