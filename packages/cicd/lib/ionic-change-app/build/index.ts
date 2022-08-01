@@ -12,7 +12,7 @@ export default async function main(
   skipPwa: boolean
 ) {
   start('build')
-  await changeApp(appId, skipCapacitator, skipPwa)
+  await changeApp(appId, skipCapacitator, skipPwa, 'build')
   await buildProject()
   console.info('✅', `Successfully built app.`)
 }

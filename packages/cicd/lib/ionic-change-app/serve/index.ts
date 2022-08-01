@@ -1,4 +1,4 @@
-import {appPath, cicdDir, start} from '../_helpers/helpers'
+import {appPath, start} from '../_helpers/helpers'
 import changeApp from '../change-app'
 import {asyncExec} from '../../async-exec'
 
@@ -8,7 +8,7 @@ import {asyncExec} from '../../async-exec'
 
 export default async function main(appId: string) {
   start('serve')
-  await changeApp(appId, true, true)
+  await changeApp(appId, true, true, 'serve')
   serveProject()
 }
 
