@@ -13,7 +13,7 @@ function handleError(title: string, e: any) {
 const packagesDir = `${process.cwd()}/..`
 const appPath = `${packagesDir}/app`
 const cicdDir = `${packagesDir}/cicd-utils`
-const moduleSrcPath = `${__dirname}/../../lib`
+const moduleSrcPath = `${__dirname}/../..`
 const templatesPath = `${moduleSrcPath}/ionic-change-app/change-app/_templates`
 
 // CICD Config

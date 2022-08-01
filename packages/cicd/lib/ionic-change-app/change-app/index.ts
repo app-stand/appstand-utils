@@ -102,7 +102,7 @@ export default async function main(
   }
 
   if (skipCapacitator) {
-    console.info('ℹ️', `Skipping capacitator asset generation...`)
+    console.info('🔶', `Skipping capacitator asset generation...`)
   } else {
     try {
       start('replaceStringsXml')
@@ -141,7 +141,7 @@ export default async function main(
   }
 
   if (skipPwa) {
-    console.info('ℹ️', `Skipping pwa asset generation...`)
+    console.info('🔶', `Skipping pwa asset generation...`)
   } else {
     try {
       start('createPWAIcons')
