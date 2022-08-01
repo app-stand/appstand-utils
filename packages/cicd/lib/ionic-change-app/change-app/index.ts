@@ -73,7 +73,7 @@ export default async function main(
     start('changeRobots')
     changeRobots()
   } catch (e) {
-    handleError('changeApp', e)
+    handleError('changeRobots', e)
   }
 
   try {
