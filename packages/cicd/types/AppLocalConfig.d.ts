@@ -34,6 +34,9 @@ export interface AppLocalConfig {
       packageName: string
       customUrlSheme: string
     }
+    valuesV31Xml: {
+      windowSplashScreenBackground: string
+    }
   }
   pwa: {
     manifest: {

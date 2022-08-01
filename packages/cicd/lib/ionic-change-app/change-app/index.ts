@@ -15,6 +15,7 @@ import {
 } from '../_helpers/helpers'
 // import pwaAssetGenerator from 'pwa-asset-generator'
 import replaceStringsXml from './file-replacers/stringsXml'
+import replaceValuesV31Xml from './file-replacers/replaceValuesV31Xml'
 import replaceIndexHtml from './file-replacers/indexHtml'
 
 interface ReplacementObj {
@@ -112,6 +113,13 @@ export default async function main(
       replaceStringsXml(appLocalConfig)
     } catch (e) {
       handleError('replaceStringsXml', e)
+    }
+
+    try {
+      start('replaceValuesV31Xml')
+      replaceValuesV31Xml(appLocalConfig)
+    } catch (e) {
+      handleError('replaceValuesV31Xml', e)
     }
 
     try {
