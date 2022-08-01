@@ -10,6 +10,7 @@ import {
   templatesPath,
   getOldAppLocalConfig,
   getConfig,
+  handleError,
 } from '../_helpers/helpers'
 // import pwaAssetGenerator from 'pwa-asset-generator'
 import replaceStringsXml from './file-replacers/stringsXml'
@@ -67,38 +68,90 @@ export default async function main(
   ]
 
   start('changeApp')
+
   try {
+    start('changeRobots')
+    changeRobots()
+  } catch (e) {
+    handleError('changeApp', e)
+  }
+
+  try {
+    start('copySync')
     for (const {srcPath, destPath} of elementsToMove) {
       copySync(srcPath, destPath)
     }
-    changeRobots()
-
-    if (config.changeSitemap) {
-      changeSitemapXml()
-    }
-
-    replaceIndexHtml(appLocalConfig)
-
-    if (skipCapacitator) {
-      console.info('ℹ️', `Skipping capacitator asset generation...`)
-    } else {
-      replaceStringsXml(appLocalConfig)
-      changeInfoPlist()
-      renameAndroidPackageFolder()
-      changeIdentifier()
-      await createMobileIcons()
-    }
-
-    if (skipPwa) {
-      console.info('ℹ️', `Skipping pwa asset generation...`)
-    } else {
-      await createPWAIcons()
-    }
   } catch (e) {
-    console.error('❌', e)
-    return
+    handleError('copySync', e)
   }
-  console.info('✅', `Successfully changed app to ${appId}`)
+
+  if (config.changeSitemap) {
+    try {
+      start('changeSitemapXml')
+      changeSitemapXml()
+    } catch (e) {
+      handleError('changeSitemapXml', e)
+    }
+  }
+
+  try {
+    start('replaceIndexHtml')
+    replaceIndexHtml(appLocalConfig)
+  } catch (e) {
+    handleError('replaceIndexHtml', e)
+  }
+
+  if (skipCapacitator) {
+    console.info('ℹ️', `Skipping capacitator asset generation...`)
+  } else {
+    try {
+      start('replaceStringsXml')
+      replaceStringsXml(appLocalConfig)
+    } catch (e) {
+      handleError('replaceStringsXml', e)
+    }
+
+    try {
+      start('changeInfoPlist')
+      changeInfoPlist()
+    } catch (e) {
+      handleError('changeInfoPlist', e)
+    }
+
+    try {
+      start('renameAndroidPackageFolder')
+      renameAndroidPackageFolder()
+    } catch (e) {
+      handleError('renameAndroidPackageFolder', e)
+    }
+
+    try {
+      start('changeIdentifier')
+      changeIdentifier()
+    } catch (e) {
+      handleError('changeIdentifier', e)
+    }
+
+    try {
+      start('createMobileIcons')
+      await createMobileIcons()
+    } catch (e) {
+      handleError('createMobileIcons', e)
+    }
+  }
+
+  if (skipPwa) {
+    console.info('ℹ️', `Skipping pwa asset generation...`)
+  } else {
+    try {
+      start('createPWAIcons')
+      await createPWAIcons()
+    } catch (e) {
+      handleError('createPWAIcons', e)
+    }
+  }
+
+  console.info('✅', `Changed app to ${appId}`)
 
   // ******************************************************************
   // ************************** FUNCTIONS *****************************

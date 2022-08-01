@@ -5,6 +5,11 @@ function start(title: string) {
   console.info('ℹ️', `Starting ${title}...`)
 }
 
+function handleError(title: string, e: any) {
+  console.error('❌', `${title} failed, skipping...`)
+  console.debug(e)
+}
+
 const packagesDir = `${process.cwd()}/..`
 const appPath = `${packagesDir}/app`
 const cicdDir = `${packagesDir}/cicd-utils`
@@ -52,4 +57,5 @@ export {
   getConfig,
   templatesPath,
   getOldAppLocalConfig,
+  handleError,
 }
