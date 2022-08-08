@@ -1,6 +1,6 @@
-import { toastController } from '@ionic/vue'
+import {toastController} from '@ionic/vue'
 
-export async function handleError(e: any, message?: string) {
+export async function handleError(e: unknown, message?: string) {
   console.error(e)
   const toast = await toastController.create({
     header: 'Something went wrong.',

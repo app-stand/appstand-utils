@@ -5,7 +5,7 @@ function start(title: string) {
   console.info('ℹ️', `Starting ${title}...`)
 }
 
-function handleError(title: string, e: any) {
+function handleError(title: string, e: unknown) {
   console.error('❌', `${title} failed, skipping...`)
   console.debug(e)
 }
