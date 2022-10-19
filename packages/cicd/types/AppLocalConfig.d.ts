@@ -57,4 +57,7 @@ export interface AppLocalConfig {
       backgroundColor: string
     }
   }
+  settings: {
+    allowMultipleApps: boolean
+  }
 }
