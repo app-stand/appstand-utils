@@ -38,6 +38,7 @@ async function getOldAppLocalConfig() {
     const configTs = await import(oldConfigPath)
     return configTs.default as AppLocalConfig
   } catch (e) {
+    console.error(e)
     return null
   }
 }
