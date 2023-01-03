@@ -9,6 +9,9 @@ export interface AppLocalConfig {
     android: string
     ios: string
   }
+  colors: {
+    primary: string
+  }
   firebase: {
     apiKey: string
     authDomain: string
