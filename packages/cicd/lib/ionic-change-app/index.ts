@@ -19,11 +19,12 @@ async function main() {
 
   if (MODE === 'serve') return serve(APP_ID)
 
-  if (MODE === 'build-web') return build(APP_ID)
-  if (MODE === 'build-mobile') return build(APP_ID)
   if (MODE === 'build') return build(APP_ID)
   if (MODE === 'change') {
     return changeApp(APP_ID, false, false)
+  }
+  if (MODE === 'change-web') {
+    return changeApp(APP_ID, true, false)
   }
 
   throw '❌: Either no MODE / APP provided, or SEMANTIC_INDEX missing.'
