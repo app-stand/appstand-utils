@@ -1,18 +1,12 @@
 import {asyncExec} from '../../async-exec'
 import {appPath, start} from '../_helpers/helpers'
-import changeApp from '../change-app'
 
 // ******************************************************************
 // ***************************** MAIN *******************************
 // ******************************************************************
 
-export default async function main(
-  appId: string,
-  skipCapacitator: boolean,
-  skipPwa: boolean
-) {
+export default async function main(appId: string) {
   start('build')
-  await changeApp(appId, skipCapacitator, skipPwa, 'build')
   await buildProject()
   console.info('✅', `Successfully built app.`)
 }

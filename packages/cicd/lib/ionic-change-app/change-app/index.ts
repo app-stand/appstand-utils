@@ -1,7 +1,6 @@
 import {readFileSync, writeFileSync, renameSync} from 'fs'
 import fsExtra from 'fs-extra'
-import {asyncExec} from './../../async-exec'
-import {Mode} from 'types'
+import {asyncExec} from '../../async-exec'
 const {copySync} = fsExtra
 import {
   getAppLocalConfig,
@@ -30,19 +29,14 @@ interface ReplacementObj {
 export default async function main(
   appId: string,
   skipCapacitator: boolean,
-  skipPwa: boolean,
-  mode: Mode
+  skipPwa: boolean
 ) {
   const config = await getConfig()
   const appLocalConfig = await getAppLocalConfig(appId)
   const oldappLocalConfig = await getOldAppLocalConfig()
 
-  if (
-    mode === 'serve' ||
-    (oldappLocalConfig &&
-      appLocalConfig.identifier === oldappLocalConfig.identifier)
-  ) {
-    console.info('ℹ️', `App doesn't need to be changed, skipped.`)
+  if (appLocalConfig.identifier === oldappLocalConfig?.identifier) {
+    console.info('ℹ️', `App doesn't need to be changed, skip.`)
     return
   }
 
