@@ -21,11 +21,6 @@
     },
     "lib": ["ES2021.String"]
   },
-  "ts-node": {
-    "files": true,
-    "esm": true,
-    "experimentalSpecifierResolution": "node"
-  },
   "include": ["lib", "types", "lodash-es"],
   "exclude": ["node_modules"]
 }
