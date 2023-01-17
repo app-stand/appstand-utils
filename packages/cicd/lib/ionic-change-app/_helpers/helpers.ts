@@ -1,5 +1,10 @@
-import {assign} from 'lodash'
+import {assign} from 'lodash-es'
+import {dirname} from 'path'
 import {AppLocalConfig, AppstandCicdConfig} from 'types'
+import {fileURLToPath} from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 function start(title: string) {
   console.info('ℹ️', `Starting ${title}...`)
@@ -45,6 +50,7 @@ async function getOldAppLocalConfig() {
 
 async function getAppLocalConfig(appId: string) {
   const configPath = `${cicdDir}/apps/${appId}/assets/appLocalConfig.ts`
+
   const configTs = await import(configPath)
   return configTs.default as AppLocalConfig
 }

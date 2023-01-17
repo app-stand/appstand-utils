@@ -1,5 +1,5 @@
 import {AppLocalConfig} from 'types'
-import {readFileSync, writeFileSync} from 'fs-extra'
+import {readFileSync, writeFileSync} from 'fs'
 import {appPath} from '../../_helpers/helpers'
 import replaceBetween from './helpers/replaceBetween'
 

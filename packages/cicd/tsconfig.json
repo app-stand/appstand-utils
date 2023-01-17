@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "commonjs",
+    "module": "ESNext",
     "declaration": true,
     "strict": true,
     "jsx": "preserve",
@@ -22,8 +22,10 @@
     "lib": ["ES2021.String"]
   },
   "ts-node": {
-    "files": true
+    "files": true,
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
   },
-  "include": ["lib", "types"],
+  "include": ["lib", "types", "lodash-es"],
   "exclude": ["node_modules"]
 }

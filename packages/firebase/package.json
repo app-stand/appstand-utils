@@ -16,7 +16,7 @@
   "private": false,
   "dependencies": {
     "@babel/types": "^7.17.10",
-    "@ionic/vue": "^6.0.12",
+    "@ionic/vue": "^6.4.2",
     "vue": "^3.2.31"
   }
 }
