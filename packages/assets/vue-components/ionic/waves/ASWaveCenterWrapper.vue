@@ -1,11 +1,10 @@
+<script lang="ts" setup></script>
+
 <template>
   <div class="wrapperSpace _iosMargin">
     <slot />
   </div>
 </template>
-
-<script lang="ts" setup>
-</script>
 
 <style scoped>
 .wrapperSpace {
@@ -28,11 +27,4 @@
     height: 73%;
   }
 }
-
-/* Not supported screen sized*/
-/*@media (min-aspect-ratio: 48/17), (max-aspect-ratio: 7/22) {
-  .wrapperSpace {
-    background: red;
-  }
-}*/
 </style>

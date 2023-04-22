@@ -1,3 +1,22 @@
+<script lang="ts" setup>
+import {IonGrid, IonRow, IonCol} from '@ionic/vue'
+
+defineProps({
+  title: {
+    type: String,
+    default: '',
+  },
+  fullscreen: {
+    default: false,
+    type: Boolean,
+  },
+  fullWidth: {
+    default: false,
+    type: Boolean,
+  },
+})
+</script>
+
 <template>
   <ion-grid class="_iosMargin">
     <ion-row>
@@ -19,25 +38,6 @@
     </ion-row>
   </ion-grid>
 </template>
-
-<script lang="ts" setup>
-import {IonGrid, IonRow, IonCol} from '@ionic/vue'
-
-defineProps({
-  title: {
-    type: String,
-    default: '',
-  },
-  fullscreen: {
-    default: false,
-    type: Boolean,
-  },
-  fullWidth: {
-    default: false,
-    type: Boolean,
-  },
-})
-</script>
 
 <style scoped>
 .pageTitle {

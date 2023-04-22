@@ -1,7 +1,3 @@
-<template>
-  <img class="app-icon" :height="size" :src="src" :style="dynStyle" />
-</template>
-
 <script lang="ts" setup>
 import {computed} from 'vue'
 
@@ -29,6 +25,10 @@ const dynStyle = computed(() => {
   }
 })
 </script>
+
+<template>
+  <img class="app-icon" :height="size" :src="src" :style="dynStyle" />
+</template>
 
 <style scoped>
 .app-icon {

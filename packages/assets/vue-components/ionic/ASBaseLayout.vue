@@ -1,17 +1,3 @@
-<template>
-  <ion-page>
-    <slot name="toolbar" />
-    <ion-content
-      :force-overscroll="false"
-      :fullscreen="fullscreen"
-      :scrollY="scrollY"
-    >
-      <slot />
-    </ion-content>
-    <slot name="footer"></slot>
-  </ion-page>
-</template>
-
 <script lang="ts" setup>
 import {IonPage, IonContent} from '@ionic/vue'
 
@@ -25,6 +11,20 @@ defineProps({
   },
 })
 </script>
+
+<template>
+  <ion-page>
+    <slot name="toolbar" />
+    <ion-content
+      :force-overscroll="false"
+      :fullscreen="fullscreen"
+      :scrollY="scrollY"
+    >
+      <slot />
+    </ion-content>
+    <slot name="footer"></slot>
+  </ion-page>
+</template>
 
 <style scoped>
 ion-content {

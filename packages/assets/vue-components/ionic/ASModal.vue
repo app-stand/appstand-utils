@@ -1,23 +1,3 @@
-<template>
-  <ion-header class="ion-no-border">
-    <ion-toolbar mode="md">
-      <ion-title> {{ title }} </ion-title>
-      <ion-buttons slot="end">
-        <ion-button
-          @click="modalController.dismiss()"
-          slot="icon-only"
-          size="large"
-        >
-          <ion-icon :icon="closeCircleIcon" size="large"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content class="ion-padding">
-    <slot />
-  </ion-content>
-</template>
-
 <script lang="ts" setup>
 import {
   IonContent,
@@ -38,6 +18,26 @@ defineProps({
   },
 })
 </script>
+
+<template>
+  <ion-header class="ion-no-border">
+    <ion-toolbar mode="md">
+      <ion-title> {{ title }} </ion-title>
+      <ion-buttons slot="end">
+        <ion-button
+          @click="modalController.dismiss()"
+          slot="icon-only"
+          size="large"
+        >
+          <ion-icon :icon="closeCircleIcon" size="large"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <slot />
+  </ion-content>
+</template>
 
 <style scoped>
 ion-modal ion-content {

@@ -1,3 +1,28 @@
+<script lang="ts" setup>
+import appleAppStoreBadge from './img/apple-app-store.svg?url'
+import androidPlayStoreBadge from './img/android-play-store.svg?url'
+import visitWebsiteBadge from './img/visit-website.svg?url'
+
+defineProps({
+  android: {
+    type: String,
+    required: false,
+  },
+  ios: {
+    type: String,
+    required: false,
+  },
+  website: {
+    type: String,
+    required: false,
+  },
+  size: {
+    type: String,
+    default: '49',
+  },
+})
+</script>
+
 <template>
   <div class="appstore-badge-wrapper">
     <div class="appstore-badge-badge">
@@ -17,31 +42,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts" setup>
-import appleAppStoreBadge from './img/apple-app-store.svg?url'
-import androidPlayStoreBadge from './img/android-play-store.svg?url'
-import visitWebsiteBadge from './img/visit-website.svg?url'
-
-const props = defineProps({
-  android: {
-    type: String,
-    required: false,
-  },
-  ios: {
-    type: String,
-    required: false,
-  },
-  website: {
-    type: String,
-    required: false,
-  },
-  size: {
-    type: String,
-    default: '49',
-  },
-})
-</script>
 
 <style scoped>
 .appstore-badge-badge {
