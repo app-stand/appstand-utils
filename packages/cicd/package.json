@@ -17,7 +17,7 @@
   "private": false,
   "dependencies": {
     "@babel/types": "^7.17.10",
-    "@ionic/vue": "^6.4.2",
+    "@ionic/vue": "^7.0.3",
     "fs-extra": "^11.1.0",
     "lodash-es": "^4.17.21",
     "pwa-asset-generator": "^6.2.1",

@@ -2,7 +2,7 @@
   <ion-page>
     <slot name="toolbar" />
     <ion-content
-      forceOverscroll="false"
+      :force-overscroll="false"
       :fullscreen="fullscreen"
       :scrollY="scrollY"
     >

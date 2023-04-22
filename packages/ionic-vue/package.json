@@ -15,7 +15,7 @@
   "homepage": "https://github.com/app-stand/appstand-utils#readme",
   "private": false,
   "dependencies": {
-    "@ionic/vue": "^6.4.2",
+    "@ionic/vue": "^7.0.3",
     "vue": "^3.2.31"
   }
 }

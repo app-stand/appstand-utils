@@ -11,6 +11,6 @@
     "@babel/types": "^7.17.10"
   },
   "dependencies": {
-    "typescript": "^4.8.4"
+    "typescript": "^5.0.4"
   }
 }
