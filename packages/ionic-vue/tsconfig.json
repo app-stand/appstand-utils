@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
+    "skipLibCheck": true,
     "declarationDir": "./dist/@types",
     "paths": {
       "@/*": ["src/*"],
