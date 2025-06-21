@@ -1,4 +1,5 @@
 export interface AppLocalConfig {
+  name: string // Name of the app, e.g. "MyApp" (short)
   identifier: string // Should be completely unique ID
   firestoreId: string // Unique per abb, but smae for different envs (used for firestore etc.)
   url: {
@@ -61,6 +62,7 @@ export interface AppLocalConfig {
     }
   }
   settings: {
+    isProductive: false
     allowMultipleApps: boolean
   }
 }
