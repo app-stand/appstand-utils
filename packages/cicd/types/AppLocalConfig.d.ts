@@ -13,16 +13,6 @@ export interface AppLocalConfig {
   colors: {
     primary: string
   }
-  firebase: {
-    apiKey: string
-    authDomain: string
-    databaseURL?: string
-    projectId: string
-    storageBucket: string
-    messagingSenderId: string
-    appId: string
-    measurementId: string
-  }
   indexHtml: {
     title: string
   }
@@ -61,8 +51,21 @@ export interface AppLocalConfig {
       backgroundColor: string
     }
   }
+  firebase: {
+    apiKey: string
+    authDomain: string
+    databaseURL?: string
+    projectId: string
+    storageBucket: string
+    messagingSenderId: string
+    appId: string
+    measurementId: string
+  }
+  stripe?: {
+    publishableKey: string
+  }
   settings: {
-    isProductive: false
+    isProductive: boolean
     allowMultipleApps: boolean
   }
 }
