@@ -26,6 +26,9 @@ async function main() {
   if (MODE === 'change-web') {
     return changeApp(APP_ID, true, false)
   }
+  if (MODE === 'change-cicd') {
+    return changeApp(APP_ID, true, true)
+  }
 
   throw '❌: Either no MODE / APP provided, or SEMANTIC_INDEX missing.'
 }
