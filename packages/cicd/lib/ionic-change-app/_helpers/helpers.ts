@@ -37,18 +37,18 @@ async function getConfig() {
   }
 }
 
-async function getOldAppLocalConfig() {
+async function getOldAppLocalConfig(): Promise<AppLocalConfig | null> {
   const oldConfigPath = `${appPath}/src/assets/dyn/appLocalConfig.ts`
   try {
     const configTs = await import(oldConfigPath)
     return configTs.default as AppLocalConfig
   } catch (e) {
-    console.error(e)
+    // Can also not exist, ignore.
     return null
   }
 }
 
-async function getAppLocalConfig(appId: string) {
+async function getAppLocalConfig(appId: string): Promise<AppLocalConfig> {
   const configPath = `${cicdDir}/apps/${appId}/assets/appLocalConfig.ts`
 
   const configTs = await import(configPath)
