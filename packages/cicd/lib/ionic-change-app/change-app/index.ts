@@ -12,7 +12,7 @@ import {
   getConfig,
   handleError,
 } from '../_helpers/helpers'
-// import pwaAssetGenerator from 'pwa-asset-generator'
+import {generateImages} from 'pwa-asset-generator'
 import replaceStringsXml from './file-replacers/stringsXml'
 import replaceValuesV31Xml from './file-replacers/replaceValuesV31Xml'
 import replaceIndexHtml from './file-replacers/indexHtml'
@@ -291,14 +291,14 @@ export default async function main(
     //const manifestPath = `${appPath}/public/manifest.json`
 
     try {
-      await asyncExec(
-        `npx pwa-asset-generator -b "${appLocalConfig.pwa.icon.backgroundColor}" --padding "0px" ${sourceIconPath} ${destinationPath}`,
-        false
-      )
+      // await asyncExec(
+      //   `pwa-asset-generator -b "${appLocalConfig.pwa.icon.backgroundColor}" --padding "0px" ${sourceIconPath} ${destinationPath}`,
+      //   false
+      // )
       // TODO: Try to use the imported module instead of npx
-      // await pwaAssetGenerator.generateImages(sourceIconPath, destinationPath, {
-      //   background: appLocalConfig.backgroundColor,
-      // })
+      await generateImages(sourceIconPath, destinationPath, {
+        background: appLocalConfig.pwa.icon.backgroundColor,
+      })
     } catch (e) {
       console.error(e)
     }
