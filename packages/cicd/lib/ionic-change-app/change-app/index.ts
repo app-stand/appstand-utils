@@ -265,14 +265,17 @@ export default async function main(
     console.info('ℹ️', `Creating Capacitor assets...`)
     // Copy app-specific resources into the app root where the CLI expects them
     await copy(`${appSpecificFolder}/resources`, `${appPath}/resources`)
+    const iosProject = `${appPath}/ios/App`
+    const androidProject = `${appPath}/android`
+    const assetPath = `${appPath}/resources`
+    const iconBg = appLocalConfig.pwa.icon.backgroundColor
+    const splashBg = appLocalConfig.capacitor.splashscreen.backgroundColor
+    const localBin = `${cicdDir}/node_modules/.bin/capacitor-assets`
+    const args = `generate --ios --android --assetPath "${assetPath}" --iosProject "${iosProject}" --androidProject "${androidProject}" --iconBackgroundColor '${iconBg}' --splashBackgroundColor '${splashBg}'`
+
     try {
-      // Generate icons & splash screens for both iOS and Android in one go
-      await asyncExec(
-        `cd ${appPath} && npx @capacitor/assets generate --ios --android --assetPath resources --iosProject ios/App --androidProject android --iconBackgroundColor '${appLocalConfig.pwa.icon.backgroundColor}' --splashBackgroundColor '${appLocalConfig.capacitor.splashscreen.backgroundColor}'`,
-        false
-      )
-    } catch (e) {
-      console.error(e)
+      // Use locally installed CLI only
+      await asyncExec(`${localBin} ${args}`, false)
     } finally {
       // Always clean up the temporary resources folder
       await remove(`${appPath}/resources`).catch(() => {})
