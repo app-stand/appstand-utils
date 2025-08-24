@@ -302,16 +302,7 @@ export default async function main(
     const sourceIconPath = `${appSpecificFolder}/resources/icon.png`
     const destinationPath = `${appPath}/public/dyn/img/pwa`
 
-    // -i ${htmlIndexPath} -m ${manifestPath}
-    //const htmlIndexPath = `${appPath}/index.html`
-    //const manifestPath = `${appPath}/public/manifest.json`
-
     try {
-      // await asyncExec(
-      //   `npx pwa-asset-generator -b "${appLocalConfig.pwa.icon.backgroundColor}" --padding "0px" ${sourceIconPath} ${destinationPath}`,
-      //   false
-      // )
-      // TODO: Try to use the imported module instead of npx
       await generateImages(sourceIconPath, destinationPath, {
         background: appLocalConfig.pwa.icon.backgroundColor,
         padding: '0px',
