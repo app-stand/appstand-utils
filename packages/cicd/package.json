@@ -1,6 +1,6 @@
 {
   "name": "@appstand/cicd",
-  "version": "2.5.14",
+  "version": "3.0.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/app-stand/appstand-utils.git"
@@ -22,7 +22,8 @@
     "lodash-es": "^4.17.21",
     "pwa-asset-generator": "^8.0.5",
     "sharp": "^0.34.3",
-    "vue": "^3.2.31"
+    "vue": "^3.2.31",
+    "@capacitor/assets": "^3.0.5"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",

@@ -1,7 +1,7 @@
 import {readFileSync, writeFileSync, renameSync} from 'fs'
 import fsExtra from 'fs-extra'
 import {asyncExec} from '../../async-exec'
-const {copySync} = fsExtra
+const {copySync, copy, remove} = fsExtra
 import {
   getAppLocalConfig,
   start,
@@ -262,21 +262,20 @@ export default async function main(
   }
 
   async function createMobileIcons() {
-    console.info('ℹ️', `Creating cordova-res icons...`)
+    console.info('ℹ️', `Creating Capacitor assets...`)
+    // Copy app-specific resources into the app root where the CLI expects them
+    await copy(`${appSpecificFolder}/resources`, `${appPath}/resources`)
     try {
-      copySync(`${appSpecificFolder}/resources`, `${appPath}/resources`)
-
+      // Generate icons & splash screens for both iOS and Android in one go
       await asyncExec(
-        `cd ${appPath} && cordova-res ios --skip-config --copy`,
+        `cd ${appPath} && npx @capacitor/assets generate --ios --android --assetPath resources --iosProject ios/App --androidProject android --iconBackgroundColor '${appLocalConfig.pwa.icon.backgroundColor}' --splashBackgroundColor '${appLocalConfig.capacitor.splashscreen.backgroundColor}'`,
         false
       )
-      await asyncExec(
-        `cd ${appPath} && cordova-res android --skip-config --copy`,
-        false
-      )
-      await asyncExec(`rm -rf ${appPath}/resources`, false)
     } catch (e) {
       console.error(e)
+    } finally {
+      // Always clean up the temporary resources folder
+      await remove(`${appPath}/resources`).catch(() => {})
     }
   }
 
