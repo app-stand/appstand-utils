@@ -1,6 +1,5 @@
 import {readFileSync, writeFileSync, renameSync} from 'fs'
 import fsExtra from 'fs-extra'
-import {asyncExec} from '../../async-exec'
 const {copySync, copy, remove} = fsExtra
 import {
   getAppLocalConfig,
@@ -306,6 +305,8 @@ export default async function main(
       await generateImages(sourceIconPath, destinationPath, {
         background: appLocalConfig.pwa.icon.backgroundColor,
         padding: '0px',
+        manifest: undefined,
+        index: `${appPath}/index.html`,
       })
     } catch (e) {
       console.error(e)
