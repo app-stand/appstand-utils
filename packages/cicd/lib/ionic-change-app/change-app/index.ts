@@ -16,6 +16,7 @@ import {generateImages} from 'pwa-asset-generator'
 import replaceStringsXml from './file-replacers/stringsXml'
 import replaceValuesV31Xml from './file-replacers/replaceValuesV31Xml'
 import replaceIndexHtml from './file-replacers/indexHtml'
+import {runPackageBin} from '../../utils/run-package-bin'
 
 interface ReplacementObj {
   old: string
@@ -270,12 +271,25 @@ export default async function main(
     const assetPath = `${appPath}/resources`
     const iconBg = appLocalConfig.pwa.icon.backgroundColor
     const splashBg = appLocalConfig.capacitor.splashscreen.backgroundColor
-    const localBin = `${cicdDir}/node_modules/.bin/capacitor-assets`
-    const args = `generate --ios --android --assetPath "${assetPath}" --iosProject "${iosProject}" --androidProject "${androidProject}" --iconBackgroundColor '${iconBg}' --splashBackgroundColor '${splashBg}'`
+    const args = [
+      'generate',
+      '--ios',
+      '--android',
+      '--assetPath',
+      assetPath,
+      '--iosProject',
+      iosProject,
+      '--androidProject',
+      androidProject,
+      '--iconBackgroundColor',
+      iconBg,
+      '--splashBackgroundColor',
+      splashBg,
+    ]
 
     try {
-      // Use locally installed CLI only
-      await asyncExec(`${localBin} ${args}`, false)
+      // Use reusable bin runner
+      await runPackageBin('@capacitor/assets', {args})
     } finally {
       // Always clean up the temporary resources folder
       await remove(`${appPath}/resources`).catch(() => {})
