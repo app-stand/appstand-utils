@@ -307,6 +307,7 @@ export default async function main(
         padding: '0px',
         manifest: undefined,
         index: `${appPath}/index.html`,
+        pathOverride: 'dyn/img/pwa',
       })
     } catch (e) {
       console.error(e)
