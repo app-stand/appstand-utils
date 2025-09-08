@@ -262,36 +262,33 @@ export default async function main(
   }
 
   async function createMobileIcons() {
-    console.info('ℹ️', `Creating Capacitor assets...`)
-    // Copy app-specific resources into the app root where the CLI expects them
-    await copy(`${appSpecificFolder}/resources`, `${appPath}/resources`)
-    const iosProject = `${appPath}/ios/App`
-    const androidProject = `${appPath}/android`
-    const assetPath = `${appPath}/resources`
+    console.info('ℹ️ Creating Capacitor assets…')
+
+    const tmpResourcesAbs = `${appPath}/resources`
+    await copy(`${appSpecificFolder}/resources`, tmpResourcesAbs)
+
     const iconBg = appLocalConfig.pwa.icon.backgroundColor
     const splashBg = appLocalConfig.capacitor.splashscreen.backgroundColor
+
     const args = [
       'generate',
       '--ios',
       '--android',
       '--assetPath',
-      assetPath,
-      '--iosProject',
-      iosProject,
-      '--androidProject',
-      androidProject,
+      'resources',
       '--iconBackgroundColor',
       iconBg,
       '--splashBackgroundColor',
       splashBg,
+      // Optional (only if present; still keep relative):
+      // '--iosProject', 'ios/App',
+      // '--androidProject', 'android',
     ]
 
     try {
-      // Use reusable bin runner
-      await runPackageBin('@capacitor/assets', {args})
+      await runPackageBin('@capacitor/assets', {args, cwd: appPath})
     } finally {
-      // Always clean up the temporary resources folder
-      await remove(`${appPath}/resources`).catch(() => {})
+      await remove(tmpResourcesAbs).catch(() => {})
     }
   }
 

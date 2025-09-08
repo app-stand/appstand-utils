@@ -64,6 +64,9 @@ export interface AppLocalConfig {
   stripe?: {
     publishableKey: string
   }
+  googleMaps?: {
+    clientApiKey: 'AIzaSyDZyUKC9XwbjZLYYG9uONDDUweZ6L3w_3g'
+  }
   settings: {
     isProductive: boolean
     allowMultipleApps: boolean
