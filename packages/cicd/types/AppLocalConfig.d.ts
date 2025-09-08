@@ -65,7 +65,7 @@ export interface AppLocalConfig {
     publishableKey: string
   }
   googleMaps?: {
-    clientApiKey: 'AIzaSyDZyUKC9XwbjZLYYG9uONDDUweZ6L3w_3g'
+    clientApiKey: string
   }
   settings: {
     isProductive: boolean
