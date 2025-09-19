@@ -27,6 +27,9 @@ export interface AppLocalConfig {
       titleActivityMain: string
       packageName: string
       customUrlSheme: string
+      facebookAppId?: string
+      fbLoginProtocolScheme?: string
+      facebookClientToken?: string
     }
     valuesV31Xml: {
       windowSplashScreenBackground: string

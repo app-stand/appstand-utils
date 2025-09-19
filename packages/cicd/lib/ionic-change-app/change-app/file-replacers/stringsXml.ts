@@ -36,5 +36,32 @@ export default (appLocalConfig: AppLocalConfig) => {
     stringsXmlConfig.customUrlSheme
   )
 
+  if (stringsXmlConfig.facebookAppId) {
+    fileContent = replaceBetween(
+      fileContent,
+      '<string name="facebook_app_id">',
+      '</string>',
+      stringsXmlConfig.facebookAppId
+    )
+  }
+
+  if (stringsXmlConfig.fbLoginProtocolScheme) {
+    fileContent = replaceBetween(
+      fileContent,
+      '<string name="fb_login_protocol_scheme">',
+      '</string>',
+      `fb${stringsXmlConfig.fbLoginProtocolScheme}`
+    )
+  }
+
+  if (stringsXmlConfig.facebookClientToken) {
+    fileContent = replaceBetween(
+      fileContent,
+      '<string name="facebook_client_token">',
+      '</string>',
+      stringsXmlConfig.facebookClientToken
+    )
+  }
+
   writeFileSync(filePath, fileContent)
 }
