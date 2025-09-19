@@ -9,7 +9,9 @@ export function replacePlistArrayValue(
     .map((value) => `				<string>${value}</string>`)
     .join('\n')
   const fillIn = `
-			<array>${arrayAsXmlString}`
+			<array>
+${arrayAsXmlString}
+			`
 
   return replaceBetween(fileContent, `<key>${key}</key>`, '</array>', fillIn)
 }
