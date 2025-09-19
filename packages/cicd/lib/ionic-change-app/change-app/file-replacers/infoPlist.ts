@@ -1,55 +1,48 @@
 import {AppLocalConfig} from 'types'
 import {readFileSync, writeFileSync} from 'fs'
 import {appPath} from '../../_helpers/helpers'
-import replaceBetween from './helpers/replaceBetween'
+import {replacePlistStringValue} from './helpers/replacePlistStringValue'
+import {replacePlistArrayValue} from './helpers/replacePlistArrayValue'
 
 export default (appLocalConfig: AppLocalConfig) => {
   const filePath = `${appPath}/ios/App/App/Info.plist`
   let fileContent = readFileSync(filePath, {encoding: 'utf8'})
   const infoPlistConfig = appLocalConfig.ios.infoPlist
 
-  fileContent = replaceBetween(
+  fileContent = replacePlistStringValue(
     fileContent,
-    `<key>CFBundleDisplayName</key>
-  <string>`,
-    '</string>',
+    'CFBundleDisplayName',
     infoPlistConfig.cfBundleDisplayName
   )
 
   if (infoPlistConfig.cfBundleURLSchemes) {
-    fileContent = replaceBetween(
+    replacePlistArrayValue(
       fileContent,
-      '<key>CFBundleURLSchemes</key>\n\t\t<array>',
-      '\n\t\t</array>',
+      'CFBundleURLSchemes',
       infoPlistConfig.cfBundleURLSchemes
-        .map((scheme) => `\n\t\t\t<string>${scheme}</string>`)
-        .join('') + '\n'
     )
   }
 
   if (infoPlistConfig.facebookAppId) {
-    fileContent = replaceBetween(
+    fileContent = replacePlistStringValue(
       fileContent,
-      '<key>FacebookAppID</key>',
-      '</string>',
+      'FacebookAppID',
       infoPlistConfig.facebookAppId
     )
   }
 
   if (infoPlistConfig.facebookClientToken) {
-    fileContent = replaceBetween(
+    fileContent = replacePlistStringValue(
       fileContent,
-      '<key>FacebookClientToken</key>',
-      '</string>',
+      'FacebookClientToken',
       infoPlistConfig.facebookClientToken
     )
   }
 
   if (infoPlistConfig.facebookDisplayName) {
-    fileContent = replaceBetween(
+    fileContent = replacePlistStringValue(
       fileContent,
-      '<key>FacebookDisplayName</key>',
-      '</string>',
+      'FacebookDisplayName',
       infoPlistConfig.facebookDisplayName
     )
   }
