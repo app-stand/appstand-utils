@@ -5,11 +5,11 @@ export function replacePlistArrayValue(
   key: string,
   values: string[]
 ) {
-  return replaceBetween(
-    fileContent,
-    `<key>${key}</key>
-  <array>`,
-    '</array>',
-    values.map((value) => `\n\t\t\t<string>${value}</string>`).join('') + '\n'
-  )
+  const arrayAsXmlString = values
+    .map((value) => `				<string>${value}</string>`)
+    .join('\n')
+  const fillIn = `
+			<array>${arrayAsXmlString}`
+
+  return replaceBetween(fileContent, `<key>${key}</key>`, '</array>', fillIn)
 }

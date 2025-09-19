@@ -5,11 +5,8 @@ export function replacePlistStringValue(
   key: string,
   value: string
 ) {
-  return replaceBetween(
-    fileContent,
-    `<key>${key}</key>
-  <string>`,
-    '</string>',
-    value
-  )
+  const fillIn = `
+	<string>${value}`
+
+  return replaceBetween(fileContent, `<key>${key}</key>`, '</string>', fillIn)
 }

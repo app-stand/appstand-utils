@@ -4,8 +4,12 @@ import {appPath} from '../../_helpers/helpers'
 import {replacePlistStringValue} from './helpers/replacePlistStringValue'
 import {replacePlistArrayValue} from './helpers/replacePlistArrayValue'
 
-export default (appLocalConfig: AppLocalConfig) => {
-  const filePath = `${appPath}/ios/App/App/Info.plist`
+export function replaceInfoPlist(
+  appLocalConfig: AppLocalConfig,
+  isDevInfoPlist: boolean = false
+) {
+  const fileName = isDevInfoPlist ? 'Info-Dev.plist' : 'Info.plist'
+  const filePath = `${appPath}/ios/App/App/${fileName}`
   let fileContent = readFileSync(filePath, {encoding: 'utf8'})
   const infoPlistConfig = appLocalConfig.ios.infoPlist
 

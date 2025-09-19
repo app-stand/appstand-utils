@@ -16,6 +16,7 @@ import replaceStringsXml from './file-replacers/stringsXml'
 import replaceValuesV31Xml from './file-replacers/replaceValuesV31Xml'
 import replaceIndexHtml from './file-replacers/indexHtml'
 import {runPackageBin} from '../../utils/run-package-bin'
+import {replaceInfoPlist} from './file-replacers/replaceInfoPlist'
 
 interface ReplacementObj {
   old: string
@@ -118,9 +119,16 @@ export default async function main(
 
     try {
       start('changeInfoPlist')
-      changeInfoPlist()
+      replaceInfoPlist(appLocalConfig)
     } catch (e) {
       handleError('changeInfoPlist', e)
+    }
+
+    try {
+      start('changeInfoDevPlist')
+      replaceInfoPlist(appLocalConfig, true)
+    } catch (e) {
+      handleError('changeInfoDevPlist', e)
     }
 
     try {
@@ -184,22 +192,6 @@ export default async function main(
     )
     const destPath = `${appPath}/public/robots.txt`
     writeFileSync(destPath, parsedFile)
-  }
-
-  function changeInfoPlist() {
-    if (!oldappLocalConfig) return
-    // packages/app/ios/App/App/Info.plist
-    const filePath = `${appPath}/ios/App/App/Info.plist`
-
-    const replacements = [
-      {
-        old: oldappLocalConfig.ios.infoPlist.cfBundleDisplayName,
-        new: appLocalConfig.ios.infoPlist.cfBundleDisplayName,
-      },
-    ]
-    const parsedFile = _replaceContent(filePath, replacements)
-
-    writeFileSync(filePath, parsedFile)
   }
 
   function changeSitemapXml() {
