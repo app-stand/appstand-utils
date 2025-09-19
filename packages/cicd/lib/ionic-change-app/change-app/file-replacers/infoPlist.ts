@@ -16,5 +16,43 @@ export default (appLocalConfig: AppLocalConfig) => {
     infoPlistConfig.cfBundleDisplayName
   )
 
+  if (infoPlistConfig.cfBundleURLSchemes) {
+    fileContent = replaceBetween(
+      fileContent,
+      '<key>CFBundleURLSchemes</key>\n\t\t<array>',
+      '\n\t\t</array>',
+      infoPlistConfig.cfBundleURLSchemes
+        .map((scheme) => `\n\t\t\t<string>${scheme}</string>`)
+        .join('') + '\n'
+    )
+  }
+
+  if (infoPlistConfig.facebookAppId) {
+    fileContent = replaceBetween(
+      fileContent,
+      '<key>FacebookAppID</key>',
+      '</string>',
+      infoPlistConfig.facebookAppId
+    )
+  }
+
+  if (infoPlistConfig.facebookClientToken) {
+    fileContent = replaceBetween(
+      fileContent,
+      '<key>FacebookClientToken</key>',
+      '</string>',
+      infoPlistConfig.facebookClientToken
+    )
+  }
+
+  if (infoPlistConfig.facebookDisplayName) {
+    fileContent = replaceBetween(
+      fileContent,
+      '<key>FacebookDisplayName</key>',
+      '</string>',
+      infoPlistConfig.facebookDisplayName
+    )
+  }
+
   writeFileSync(filePath, fileContent)
 }

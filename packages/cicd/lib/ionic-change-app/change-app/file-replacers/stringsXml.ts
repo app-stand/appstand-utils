@@ -45,12 +45,12 @@ export default (appLocalConfig: AppLocalConfig) => {
     )
   }
 
-  if (stringsXmlConfig.fbLoginProtocolScheme) {
+  if (stringsXmlConfig.facebookAppId) {
     fileContent = replaceBetween(
       fileContent,
       '<string name="fb_login_protocol_scheme">',
       '</string>',
-      `fb${stringsXmlConfig.fbLoginProtocolScheme}`
+      `fb${stringsXmlConfig.facebookAppId}`
     )
   }
 

@@ -19,6 +19,10 @@ export interface AppLocalConfig {
   ios: {
     infoPlist: {
       cfBundleDisplayName: string
+      cfBundleURLSchemes?: string[]
+      facebookAppId?: string
+      facebookClientToken?: string
+      facebookDisplayName?: string
     }
   }
   android: {
@@ -28,7 +32,6 @@ export interface AppLocalConfig {
       packageName: string
       customUrlSheme: string
       facebookAppId?: string
-      fbLoginProtocolScheme?: string
       facebookClientToken?: string
     }
     valuesV31Xml: {
