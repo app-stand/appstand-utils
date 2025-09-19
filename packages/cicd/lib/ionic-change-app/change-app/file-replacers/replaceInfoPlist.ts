@@ -20,7 +20,7 @@ export function replaceInfoPlist(
   )
 
   if (infoPlistConfig.cfBundleURLSchemes) {
-    replacePlistArrayValue(
+    fileContent = replacePlistArrayValue(
       fileContent,
       'CFBundleURLSchemes',
       infoPlistConfig.cfBundleURLSchemes
