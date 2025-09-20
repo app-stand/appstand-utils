@@ -73,6 +73,9 @@ export interface AppLocalConfig {
   googleMaps?: {
     clientApiKey: string
   }
+  googleRecaptcha?: {
+    siteKey: string
+  }
   settings: {
     isProductive: boolean
     allowMultipleApps: boolean
