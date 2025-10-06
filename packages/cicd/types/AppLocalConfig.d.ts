@@ -16,6 +16,7 @@ export interface AppLocalConfig {
     warning?: string
     danger?: string
     background?: string
+    light?: string
   }
   indexHtml: {
     title: string
