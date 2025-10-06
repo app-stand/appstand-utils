@@ -270,7 +270,11 @@ export default async function main(
       'resources',
       '--iconBackgroundColor',
       iconBg,
+      '--iconBackgroundColorDark',
+      iconBg,
       '--splashBackgroundColor',
+      splashBg,
+      '--splashBackgroundColorDark',
       splashBg,
       // Optional (only if present; still keep relative):
       // '--iosProject', 'ios/App',
