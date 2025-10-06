@@ -19,6 +19,7 @@ export interface AppLocalConfig {
   }
   indexHtml: {
     title: string
+    background: string
   }
   ios: {
     infoPlist: {

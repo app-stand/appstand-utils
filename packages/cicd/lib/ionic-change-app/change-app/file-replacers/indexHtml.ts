@@ -15,5 +15,14 @@ export default (appLocalConfig: AppLocalConfig) => {
     indexHtmlConfig.title
   )
 
+  fileContent = replaceBetween(
+    fileContent,
+    `html {
+      background: `,
+    `;
+    }`,
+    indexHtmlConfig.background
+  )
+
   writeFileSync(filePath, fileContent)
 }
