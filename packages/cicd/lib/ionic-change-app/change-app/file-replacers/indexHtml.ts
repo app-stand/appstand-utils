@@ -17,10 +17,8 @@ export default (appLocalConfig: AppLocalConfig) => {
 
   fileContent = replaceBetween(
     fileContent,
-    `html {
-      background: `,
-    `;
-    }`,
+    'background: ',
+    ';',
     indexHtmlConfig.background
   )
 
