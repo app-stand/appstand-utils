@@ -12,6 +12,10 @@ export interface AppLocalConfig {
   }
   colors: {
     primary: string
+    success?: string
+    warning?: string
+    danger?: string
+    background?: string
   }
   indexHtml: {
     title: string
