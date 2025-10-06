@@ -80,4 +80,13 @@ export interface AppLocalConfig {
     isProductive: boolean
     allowMultipleApps: boolean
   }
+  appInstanceOwner?: {
+    appName: string
+    company: {
+      name: string
+      email: string | undefined
+      addressString: string
+      websiteUrl: string
+    }
+  }
 }
