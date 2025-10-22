@@ -24,7 +24,7 @@ async function main() {
     return changeApp(APP_ID, false, false)
   }
   if (MODE === 'change-web') {
-    return changeApp(APP_ID, true, true) // TODO: At some point enable PWA again
+    return changeApp(APP_ID, true, false)
   }
   if (MODE === 'change-cicd') {
     return changeApp(APP_ID, true, true)
