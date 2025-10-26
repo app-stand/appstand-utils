@@ -17,7 +17,7 @@
   "private": false,
   "dependencies": {
     "@capacitor/assets": "^3.0.5",
-    "@babel/types": "^7.17.10",
+    "@babel/types": "^7.28.5",
     "@ionic/vue": "^8.2.0",
     "fs-extra": "^11.1.0",
     "lodash-es": "^4.17.21",
