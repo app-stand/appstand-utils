@@ -21,13 +21,13 @@ async function main() {
 
   if (MODE === 'build') return build(APP_ID)
   if (MODE === 'change') {
-    return changeApp(APP_ID, false, false)
+    return changeApp(APP_ID, false)
   }
   if (MODE === 'change-web') {
-    return changeApp(APP_ID, true, true) // On purpose skip PWA due to new Vite pwa integration
+    return changeApp(APP_ID, true)
   }
   if (MODE === 'change-cicd') {
-    return changeApp(APP_ID, true, true)
+    return changeApp(APP_ID, true)
   }
 
   throw '❌: Either no MODE / APP provided, or SEMANTIC_INDEX missing.'

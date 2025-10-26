@@ -11,7 +11,7 @@ import {
   getConfig,
   handleError,
 } from '../_helpers/helpers'
-import {generateImages} from 'pwa-asset-generator'
+// import {generateImages} from 'pwa-asset-generator'
 import replaceStringsXml from './file-replacers/stringsXml'
 import replaceValuesV31Xml from './file-replacers/replaceValuesV31Xml'
 import replaceIndexHtml from './file-replacers/indexHtml'
@@ -27,11 +27,7 @@ interface ReplacementObj {
 // ***************************** MAIN *******************************
 // ******************************************************************
 
-export default async function main(
-  appId: string,
-  skipCapacitator: boolean,
-  skipPwa: boolean
-) {
+export default async function main(appId: string, skipCapacitator: boolean) {
   const config = await getConfig()
   const appLocalConfig = await getAppLocalConfig(appId)
   const oldappLocalConfig = await getOldAppLocalConfig()
@@ -159,16 +155,16 @@ export default async function main(
     }
   }
 
-  if (skipPwa) {
-    console.info('🔶', `Skipping pwa asset generation...`)
-  } else {
-    try {
-      start('createPWAIcons')
-      await createPWAIcons()
-    } catch (e) {
-      handleError('createPWAIcons', e)
-    }
-  }
+  // if (skipPwa) {
+  //   console.info('🔶', `Skipping pwa asset generation...`)
+  // } else {
+  //   try {
+  //     start('createPWAIcons')
+  //     await createPWAIcons()
+  //   } catch (e) {
+  //     handleError('createPWAIcons', e)
+  //   }
+  // }
 
   console.info('✅', `Changed app to ${appId}`)
 
@@ -294,25 +290,22 @@ export default async function main(
     }
   }
 
-  async function createPWAIcons() {
-    console.info('ℹ️', `Creating pwa icons...`)
+  // async function createPWAIcons() {
+  //   console.info('ℹ️', `Creating pwa icons...`)
 
-    const sourceIconPath = `${appSpecificFolder}/resources/icon.png`
-    const destinationPath = `${appPath}/public/dyn/img/pwa`
+  //   const sourceIconPath = `${appSpecificFolder}/resources/icon.png`
+  //   const destinationPath = `${appPath}/public/dyn/img/pwa`
 
-    const args = [sourceIconPath]
-
-    try {
-      await runPackageBin('pwa-assets-generator', {args, cwd: appPath})
-      await generateImages(sourceIconPath, destinationPath, {
-        background: appLocalConfig.pwa.icon.backgroundColor,
-        padding: '0px',
-        manifest: undefined,
-        index: `${appPath}/index.html`,
-        pathOverride: 'dyn/img/pwa',
-      })
-    } catch (e) {
-      console.error(e)
-    }
-  }
+  //   try {
+  //     await generateImages(sourceIconPath, destinationPath, {
+  //       background: appLocalConfig.pwa.icon.backgroundColor,
+  //       padding: '0px',
+  //       manifest: undefined,
+  //       index: `${appPath}/index.html`,
+  //       pathOverride: 'dyn/img/pwa',
+  //     })
+  //   } catch (e) {
+  //     console.error(e)
+  //   }
+  // }
 }
