@@ -43,6 +43,12 @@ export default async function main(
 
   const appSpecificFolder = `${cicdDir}/apps/${appId}`
 
+  // Remove Dyn Public folders first if exists
+  const dynPublicFolder = `${appPath}/public/dyn`
+  const dynAssetsFolder = `${appPath}/src/assets/dyn`
+  await remove(dynPublicFolder).catch(() => {})
+  await remove(dynAssetsFolder).catch(() => {})
+
   const elementsToMove = [
     // IOS Firebase File: GoogleService-Info.plist
     {
@@ -57,12 +63,12 @@ export default async function main(
     // Public Folder
     {
       srcPath: `${appSpecificFolder}/public`,
-      destPath: `${appPath}/public/dyn`,
+      destPath: dynPublicFolder,
     },
     // Assets Folder
     {
       srcPath: `${appSpecificFolder}/assets`,
-      destPath: `${appPath}/src/assets/dyn`,
+      destPath: dynAssetsFolder,
     },
   ]
 
@@ -294,7 +300,10 @@ export default async function main(
     const sourceIconPath = `${appSpecificFolder}/resources/icon.png`
     const destinationPath = `${appPath}/public/dyn/img/pwa`
 
+    const args = [sourceIconPath]
+
     try {
+      await runPackageBin('pwa-assets-generator', {args, cwd: appPath})
       await generateImages(sourceIconPath, destinationPath, {
         background: appLocalConfig.pwa.icon.backgroundColor,
         padding: '0px',
