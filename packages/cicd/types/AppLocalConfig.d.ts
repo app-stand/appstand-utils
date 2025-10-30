@@ -8,6 +8,8 @@ export interface AppLocalConfig {
   }
   storeLinks: {
     android: string
+    androidPackageName: string
+    iosAppStoreAppId: string
     ios: string
   }
   colors: {
