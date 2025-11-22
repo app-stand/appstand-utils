@@ -3,7 +3,7 @@ import {SemanticIndex} from 'types'
 import {packagesDir, start} from '../_helpers/helpers'
 
 const ionicDir = `${packagesDir}/app`
-const buildGradlePath = `${ionicDir}/android/app/build.gradle`
+const buildGradlePath = `${ionicDir}/android/app/build.gradle.kts`
 const pbxprojPath = `${ionicDir}/ios/App/App.xcodeproj/project.pbxproj`
 const packageJsonPath = `${ionicDir}/package.json`
 

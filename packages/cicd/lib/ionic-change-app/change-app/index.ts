@@ -227,7 +227,7 @@ export default async function main(appId: string, skipCapacitator: boolean) {
       `${appPath}/ios/App/App.xcodeproj/project.pbxproj`,
       `${appPath}/android/app/src/main/java/${androidPath}/MainActivity.java`,
       `${appPath}/android/app/src/main/AndroidManifest.xml`,
-      `${appPath}/android/app/build.gradle`,
+      `${appPath}/android/app/build.gradle.kts`,
     ]
 
     const replacements = [
