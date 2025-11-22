@@ -29,19 +29,22 @@ function main(semanticIndex: SemanticIndex) {
 // ************************** FUNCTIONS *****************************
 // ******************************************************************
 function getNextBuild(gradleFile: string) {
-  // Get Current Build
-  const i = gradleFile.indexOf('versionCode') + 12
-  const currentBuild = gradleFile.substring(i, i + 5).replace(/\s/g, '')
-  return parseInt(currentBuild) + 1
+  // Get Current Build using regex
+  const versionCodeMatch = gradleFile.match(/versionCode\s*=\s*(\d+)/)
+  if (!versionCodeMatch) {
+    throw new Error('Could not find versionCode in gradle file')
+  }
+  const currentBuild = parseInt(versionCodeMatch[1])
+  return currentBuild + 1
 }
 
 function getNextVersion(gradleFile: string, semanticIndex: SemanticIndex) {
-  // Get Current Build
-  const i = gradleFile.indexOf('versionName') + 12
-  const currentVersion = gradleFile
-    .substring(i, i + 14)
-    .replace(/\s/g, '')
-    .replaceAll('"', '')
+  // Get Current Version using regex
+  const versionNameMatch = gradleFile.match(/versionName\s*=\s*"([^"]+)"/)
+  if (!versionNameMatch) {
+    throw new Error('Could not find versionName in gradle file')
+  }
+  const currentVersion = versionNameMatch[1]
 
   if (semanticIndex === '99') {
     return currentVersion
@@ -83,8 +86,8 @@ function writeNewVersionToBuildGradle(
 ) {
   const regex = /versionCode[\s\S]*?testInstrumentationRunner/
 
-  const newText = `versionCode ${build}
-        versionName "${version}"
+  const newText = `versionCode = ${build}
+        versionName = "${version}"
         testInstrumentationRunner`
 
   const gradleFileNew = gradleFile.replace(regex, newText)
