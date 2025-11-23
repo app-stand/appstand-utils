@@ -49,7 +49,15 @@ defineProps({
 }
 
 .appstore-badge-badge img {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.appstore-badge-badge:not(:first-child) img {
   margin-left: 2px;
+}
+
+.appstore-badge-badge:not(:last-child) img {
   margin-right: 2px;
 }
 
