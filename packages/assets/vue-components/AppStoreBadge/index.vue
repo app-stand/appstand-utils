@@ -44,24 +44,17 @@ defineProps({
 </template>
 
 <style scoped>
+.appstore-badge-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* keep consistent spacing even when wrapping vertically */
+}
+
 .appstore-badge-badge {
-  display: inline-block;
+  display: flex;
 }
 
 .appstore-badge-badge img {
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.appstore-badge-badge:not(:first-child) img {
-  margin-left: 2px;
-}
-
-.appstore-badge-badge:not(:last-child) img {
-  margin-right: 2px;
-}
-
-a + a {
-  margin-left: 10px;
+  display: block;
 }
 </style>
