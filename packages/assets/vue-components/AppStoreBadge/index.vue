@@ -36,8 +36,12 @@ const normalizedSize = computed(() => {
 
 <template>
   <div class="appstore-badge-wrapper">
-    <div class="appstore-badge-badge" :style="{height: normalizedSize}">
-      <a v-if="ios" :href="ios" target="_blank">
+    <div
+      v-if="ios"
+      class="appstore-badge-badge"
+      :style="{height: normalizedSize}"
+    >
+      <a :href="ios" target="_blank">
         <img :src="appleAppStoreBadge" />
       </a>
     </div>
@@ -50,13 +54,21 @@ const normalizedSize = computed(() => {
         <img :src="androidPlayStoreBadge" />
       </a>
     </div>
-    <div class="appstore-badge-badge" :style="{height: normalizedSize}">
-      <a v-if="website" :href="website" target="_blank">
+    <div
+      v-if="website"
+      class="appstore-badge-badge"
+      :style="{height: normalizedSize}"
+    >
+      <a :href="website" target="_blank">
         <img :src="visitWebsiteBadge" />
       </a>
     </div>
-    <div class="appstore-badge-badge" :style="{height: normalizedSize}">
-      <a v-if="webconsole" :href="webconsole" target="_blank">
+    <div
+      v-if="webconsole"
+      class="appstore-badge-badge"
+      :style="{height: normalizedSize}"
+    >
+      <a :href="webconsole" target="_blank">
         <img :src="visitWebconsoleBadge" />
       </a>
     </div>
