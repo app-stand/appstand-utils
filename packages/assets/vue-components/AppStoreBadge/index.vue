@@ -3,6 +3,7 @@ import {computed} from 'vue'
 import appleAppStoreBadge from './img/apple-app-store.svg?url'
 import androidPlayStoreBadge from './img/android-play-store.svg?url'
 import visitWebsiteBadge from './img/visit-website.svg?url'
+import visitWebconsoleBadge from './img/visit-webconsole.svg?url'
 
 const props = defineProps({
   android: {
@@ -14,6 +15,10 @@ const props = defineProps({
     required: false,
   },
   website: {
+    type: String,
+    required: false,
+  },
+  webconsole: {
     type: String,
     required: false,
   },
@@ -48,6 +53,11 @@ const normalizedSize = computed(() => {
     <div class="appstore-badge-badge" :style="{height: normalizedSize}">
       <a v-if="website" :href="website" target="_blank">
         <img :src="visitWebsiteBadge" />
+      </a>
+    </div>
+    <div class="appstore-badge-badge" :style="{height: normalizedSize}">
+      <a v-if="webconsole" :href="webconsole" target="_blank">
+        <img :src="visitWebconsoleBadge" />
       </a>
     </div>
   </div>
