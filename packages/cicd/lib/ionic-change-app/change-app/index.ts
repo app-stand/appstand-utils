@@ -13,7 +13,8 @@ import {
 } from '../_helpers/helpers'
 // import {generateImages} from 'pwa-asset-generator'
 import replaceStringsXml from './file-replacers/stringsXml'
-import replaceValuesV31Xml from './file-replacers/replaceValuesV31Xml'
+import replaceAndroidSplashStylesXml from './file-replacers/replaceAndroidSplashStylesXml'
+import replaceColorsXml from './file-replacers/replaceColorsXml'
 import replaceIndexHtml from './file-replacers/indexHtml'
 import {runPackageBin} from '../../utils/run-package-bin'
 import {replaceInfoPlist} from './file-replacers/replaceInfoPlist'
@@ -113,10 +114,17 @@ export default async function main(appId: string, skipCapacitator: boolean) {
     }
 
     try {
-      start('replaceValuesV31Xml')
-      replaceValuesV31Xml(appLocalConfig)
+      start('replaceAndroidSplashStylesXml')
+      replaceAndroidSplashStylesXml(appLocalConfig)
     } catch (e) {
-      handleError('replaceValuesV31Xml', e)
+      handleError('replaceAndroidSplashStylesXml', e)
+    }
+
+    try {
+      start('replaceColorsXml')
+      replaceColorsXml(appLocalConfig)
+    } catch (e) {
+      handleError('replaceColorsXml', e)
     }
 
     try {
