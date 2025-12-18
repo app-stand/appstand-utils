@@ -39,11 +39,9 @@ export default (appLocalConfig: AppLocalConfig) => {
     writeFileSync(filePath, fileContent)
   }
 
-  // Android 12+
   updateFileIfNeeded(
     `${appPath}/android/app/src/main/res/values-v31/styles.xml`
   )
-  // Android 10/11
   updateFileIfNeeded(
     `${appPath}/android/app/src/main/res/values-v29/styles.xml`
   )
