@@ -18,6 +18,7 @@ import replaceColorsXml from './file-replacers/replaceColorsXml'
 import replaceIndexHtml from './file-replacers/indexHtml'
 import {runPackageBin} from '../../utils/run-package-bin'
 import {replaceInfoPlist} from './file-replacers/replaceInfoPlist'
+import {resetAndroidStudioCaches} from './clear-cache/reset-android-caches'
 
 interface ReplacementObj {
   old: string
@@ -173,6 +174,13 @@ export default async function main(appId: string, skipCapacitator: boolean) {
   //     handleError('createPWAIcons', e)
   //   }
   // }
+
+  try {
+    start('resetAndroidStudioCaches')
+    await resetAndroidStudioCaches()
+  } catch (e) {
+    handleError('resetAndroidStudioCaches', e)
+  }
 
   console.info('✅', `Changed app to ${appId}`)
 
