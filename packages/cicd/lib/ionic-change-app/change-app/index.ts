@@ -1,6 +1,7 @@
-import {readFileSync, writeFileSync, renameSync} from 'fs'
+import {existsSync, readFileSync, writeFileSync, renameSync} from 'fs'
 import fsExtra from 'fs-extra'
 const {copySync, copy, remove} = fsExtra
+import {dirname} from 'path'
 import {
   getAppLocalConfig,
   start,
@@ -242,6 +243,7 @@ export default async function main(appId: string, skipCapacitator: boolean) {
     const filePaths = [
       `${appPath}/ios/App/App.xcodeproj/project.pbxproj`,
       `${appPath}/android/app/src/main/java/${androidPath}/MainActivity.java`,
+      `${appPath}/android/app/src/main/java/${androidPath}/MainActivity.kt`,
       `${appPath}/android/app/src/main/AndroidManifest.xml`,
       `${appPath}/android/app/build.gradle.kts`,
     ]
@@ -253,6 +255,10 @@ export default async function main(appId: string, skipCapacitator: boolean) {
       },
     ]
     for (const filePath of filePaths) {
+      if (!existsSync(filePath)) {
+        console.info('⚠️', `File not found, skipping: ${filePath}`)
+        continue
+      }
       const parsedFile = _replaceContent(filePath, replacements)
       writeFileSync(filePath, parsedFile)
     }
@@ -261,14 +267,27 @@ export default async function main(appId: string, skipCapacitator: boolean) {
   function renameAndroidPackageFolder() {
     if (!oldappLocalConfig)
       throw 'No oldAppConfig found, renameAndroidPackageFolder not possible!'
+    const oldAndroidPath = oldappLocalConfig.identifier.replaceAll('.', '/')
+    const newAndroidPath = appLocalConfig.identifier.replaceAll('.', '/')
+
+    const srcPath = `${appPath}/android/app/src/main/java/${oldAndroidPath}`
+    const destPath = `${appPath}/android/app/src/main/java/${newAndroidPath}`
+
+    if (srcPath === destPath) return
+
+    if (existsSync(srcPath)) {
+      fsExtra.ensureDirSync(dirname(destPath))
+      fsExtra.moveSync(srcPath, destPath, {overwrite: true})
+      return
+    }
+
+    // Fallback to legacy 3-part identifier rename (kept for backwards compatibility)
     const appIdArray = appLocalConfig.identifier.split('.')
     const oldAppIdArray = oldappLocalConfig.identifier.split('.')
-
     const basePath = `${appPath}/android/app/src/main/java/${appIdArray[0]}/${appIdArray[1]}`
-
     const oldPath = `${basePath}/${oldAppIdArray[2]}`
-    const newPat = `${basePath}/${appIdArray[2]}`
-    renameSync(oldPath, newPat)
+    const newPath = `${basePath}/${appIdArray[2]}`
+    if (existsSync(oldPath)) renameSync(oldPath, newPath)
   }
 
   async function createMobileIcons() {
