@@ -176,12 +176,12 @@ export default async function main(appId: string, skipCapacitator: boolean) {
   //   }
   // }
 
-  try {
-    start('resetAndroidStudioCaches')
-    await resetAndroidStudioCaches()
-  } catch (e) {
-    handleError('resetAndroidStudioCaches', e)
-  }
+  // try {
+  //   start('resetAndroidStudioCaches')
+  //   await resetAndroidStudioCaches()
+  // } catch (e) {
+  //   handleError('resetAndroidStudioCaches', e)
+  // }
 
   console.info('✅', `Changed app to ${appId}`)
 
