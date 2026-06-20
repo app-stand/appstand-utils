@@ -19,6 +19,7 @@ import replaceColorsXml from './file-replacers/replaceColorsXml'
 import replaceIndexHtml from './file-replacers/indexHtml'
 import {runPackageBin} from '../../utils/run-package-bin'
 import {replaceInfoPlist} from './file-replacers/replaceInfoPlist'
+import replaceBetween from './file-replacers/helpers/replaceBetween'
 import {resetAndroidStudioCaches} from './clear-cache/reset-android-caches'
 
 interface ReplacementObj {
@@ -240,6 +241,7 @@ export default async function main(appId: string, skipCapacitator: boolean) {
     if (!oldappLocalConfig)
       throw 'No oldAppConfig found, changeIdentifier not possible!'
     const androidPath = appLocalConfig.identifier.replaceAll('.', '/')
+    const manifestPath = `${appPath}/ios/App/App.xcodeproj/xcshareddata/xcodecloud/manifest.json`
     const filePaths = [
       `${appPath}/ios/App/App.xcodeproj/project.pbxproj`,
       `${appPath}/android/app/src/main/java/${androidPath}/MainActivity.java`,
@@ -261,6 +263,33 @@ export default async function main(appId: string, skipCapacitator: boolean) {
       }
       const parsedFile = _replaceContent(filePath, replacements)
       writeFileSync(filePath, parsedFile)
+    }
+
+    if (existsSync(manifestPath)) {
+      const appTargetId = appLocalConfig.ios.xcodeCloud?.appTargetId
+
+      if (!appTargetId) {
+        console.info(
+          '⚠️',
+          'No ios.xcodeCloud.appTargetId found in appLocalConfig, skipping manifest update.'
+        )
+      } else {
+        const manifestContent = readFileSync(manifestPath, {
+          encoding: 'utf8',
+        })
+
+        writeFileSync(
+          manifestPath,
+          replaceBetween(
+            manifestContent,
+            '"targets" : [\n    {\n      "id" : "',
+            '",\n      "name" : "App"',
+            appTargetId
+          )
+        )
+      }
+    } else {
+      console.info('⚠️', `File not found, skipping: ${manifestPath}`)
     }
   }
 

@@ -32,6 +32,9 @@ export interface AppLocalConfig {
       facebookClientToken?: string
       facebookDisplayName?: string
     }
+    xcodeCloud?: {
+      appTargetId?: string
+    }
   }
   android: {
     stringsXml: {
