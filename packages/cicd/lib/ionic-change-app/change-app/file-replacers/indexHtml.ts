@@ -15,12 +15,21 @@ export default (appLocalConfig: AppLocalConfig) => {
     indexHtmlConfig.title
   )
 
-  fileContent = replaceBetween(
-    fileContent,
-    'background: ',
-    ';',
-    indexHtmlConfig.background
-  )
+  const backgroundPattern = /background:\s*[^;]+;/i
+
+  if (backgroundPattern.test(fileContent)) {
+    fileContent = replaceBetween(
+      fileContent,
+      'background: ',
+      ';',
+      indexHtmlConfig.background
+    )
+  } else {
+    console.info(
+      'ℹ️',
+      'No background style found in index.html, skipping background replacement.'
+    )
+  }
 
   writeFileSync(filePath, fileContent)
 }
