@@ -244,11 +244,20 @@ export default async function main(appId: string, skipCapacitator: boolean) {
     const manifestPath = `${appPath}/ios/App/App.xcodeproj/xcshareddata/xcodecloud/manifest.json`
     const filePaths = [
       `${appPath}/ios/App/App.xcodeproj/project.pbxproj`,
-      `${appPath}/android/app/src/main/java/${androidPath}/MainActivity.java`,
-      `${appPath}/android/app/src/main/java/${androidPath}/MainActivity.kt`,
       `${appPath}/android/app/src/main/AndroidManifest.xml`,
       `${appPath}/android/app/build.gradle.kts`,
     ]
+
+    const javaMainActivityPath = `${appPath}/android/app/src/main/java/${androidPath}/MainActivity.java`
+    const kotlinMainActivityPath = `${appPath}/android/app/src/main/kotlin/${androidPath}/MainActivity.kt`
+
+    if (existsSync(javaMainActivityPath)) {
+      filePaths.push(javaMainActivityPath)
+    }
+
+    if (existsSync(kotlinMainActivityPath)) {
+      filePaths.push(kotlinMainActivityPath)
+    }
 
     const replacements = [
       {
@@ -298,25 +307,37 @@ export default async function main(appId: string, skipCapacitator: boolean) {
       throw 'No oldAppConfig found, renameAndroidPackageFolder not possible!'
     const oldAndroidPath = oldappLocalConfig.identifier.replaceAll('.', '/')
     const newAndroidPath = appLocalConfig.identifier.replaceAll('.', '/')
+    const sourceRoots = [
+      `${appPath}/android/app/src/main/java`,
+      `${appPath}/android/app/src/main/kotlin`,
+    ]
 
-    const srcPath = `${appPath}/android/app/src/main/java/${oldAndroidPath}`
-    const destPath = `${appPath}/android/app/src/main/java/${newAndroidPath}`
+    for (const sourceRoot of sourceRoots) {
+      const srcPath = `${sourceRoot}/${oldAndroidPath}`
+      const destPath = `${sourceRoot}/${newAndroidPath}`
 
-    if (srcPath === destPath) return
+      if (srcPath === destPath) continue
 
-    if (existsSync(srcPath)) {
-      fsExtra.ensureDirSync(dirname(destPath))
-      fsExtra.moveSync(srcPath, destPath, {overwrite: true})
-      return
+      if (existsSync(srcPath)) {
+        fsExtra.ensureDirSync(dirname(destPath))
+        fsExtra.moveSync(srcPath, destPath, {overwrite: true})
+        return
+      }
     }
 
     // Fallback to legacy 3-part identifier rename (kept for backwards compatibility)
     const appIdArray = appLocalConfig.identifier.split('.')
     const oldAppIdArray = oldappLocalConfig.identifier.split('.')
-    const basePath = `${appPath}/android/app/src/main/java/${appIdArray[0]}/${appIdArray[1]}`
-    const oldPath = `${basePath}/${oldAppIdArray[2]}`
-    const newPath = `${basePath}/${appIdArray[2]}`
-    if (existsSync(oldPath)) renameSync(oldPath, newPath)
+
+    for (const sourceRoot of sourceRoots) {
+      const basePath = `${sourceRoot}/${appIdArray[0]}/${appIdArray[1]}`
+      const oldPath = `${basePath}/${oldAppIdArray[2]}`
+      const newPath = `${basePath}/${appIdArray[2]}`
+
+      if (existsSync(oldPath)) {
+        renameSync(oldPath, newPath)
+      }
+    }
   }
 
   async function createMobileIcons() {
