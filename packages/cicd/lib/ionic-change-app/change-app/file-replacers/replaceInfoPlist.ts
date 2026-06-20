@@ -1,5 +1,5 @@
 import {AppLocalConfig} from 'types'
-import {readFileSync, writeFileSync} from 'fs'
+import {existsSync, readFileSync, writeFileSync} from 'fs'
 import {appPath} from '../../_helpers/helpers'
 import {replacePlistStringValue} from './helpers/replacePlistStringValue'
 import {replacePlistArrayValue} from './helpers/replacePlistArrayValue'
@@ -10,6 +10,15 @@ export function replaceInfoPlist(
 ) {
   const fileName = isDevInfoPlist ? 'Info-Dev.plist' : 'Info.plist'
   const filePath = `${appPath}/ios/App/App/${fileName}`
+
+  if (!existsSync(filePath)) {
+    console.info(
+      'ℹ️',
+      `No ${fileName} found, skipping Info.plist replacement.`
+    )
+    return
+  }
+
   let fileContent = readFileSync(filePath, {encoding: 'utf8'})
   const infoPlistConfig = appLocalConfig.ios.infoPlist
 
