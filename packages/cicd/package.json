@@ -1,6 +1,6 @@
 {
   "name": "@appstand/cicd",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/app-stand/appstand-utils.git"
@@ -17,18 +17,18 @@
   "private": false,
   "dependencies": {
     "@capacitor/assets": "^3.0.5",
-    "@babel/types": "^7.28.5",
+    "@babel/types": "^8.0.0",
     "@ionic/vue": "^8.2.0",
     "fs-extra": "^11.1.0",
     "lodash-es": "^4.17.21",
     "pwa-asset-generator": "^8.0.5",
-    "sharp": "^0.34.3",
+    "sharp": "^0.35.2",
     "vue": "^3.2.31"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
     "@types/lodash-es": "^4.14.182",
-    "@types/node": "^24.0.15"
+    "@types/node": "^26.0.0"
   },
   "bin": "./lib/ionic-change-app/index.ts"
 }
